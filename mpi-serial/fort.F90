@@ -45,18 +45,19 @@
 
 
 !
-! mpi_get_fort_pointers
+! mpi_get_fort_status
 !
-! In Fortran, various values e.g. MPI_STATUS_IGNORE, MPI_STATUSES_IGNORE,
-! and MPI_IN_PLACE are in a COMMON block and not accessible by C code.
-! This routine calls back a C routine to store the addresses.
+! In Fortran, MPI_STATUS_IGNORE and  MPI_STATUSES_IGNORE
+! are in a COMMON block and not accessible by C code.
+! This routine calls back a C routine to store the
+! addresses.
 !
 
-	subroutine mpi_get_fort_pointers
+	subroutine mpi_get_fort_status
 	implicit none
 	include "mpif.h"
 
-	call mpi_save_fort_pointers(MPI_STATUS_IGNORE,MPI_STATUSES_IGNORE,MPI_IN_PLACE)
+	call mpi_save_fort_status(MPI_STATUS_IGNORE,MPI_STATUSES_IGNORE)
 
-	end subroutine mpi_get_fort_pointers
+	end subroutine mpi_get_fort_status
 

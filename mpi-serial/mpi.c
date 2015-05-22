@@ -8,12 +8,8 @@
 
 static int initialized=0;
 
-
-/* Store fortran pointer values here */
-
-static int *f_MPI_STATUS_IGNORE;
-static int *f_MPI_STATUSES_IGNORE;
-static int *f_MPI_IN_PLACE;
+int *f_MPI_STATUS_IGNORE;
+int *f_MPI_STATUSES_IGNORE;
 
 
 /****************************************************************************/
@@ -175,7 +171,7 @@ int MPI_Init(int *argc, char **argv[])
 
   // call this to have the fortran routine call back and save
   // values for f_MPI_STATUS_IGNORE and f_MPI_STATUSES_IGNORE
-  FC_FUNC(mpi_get_fort_pointers,MPI_GET_FORT_POINTERS)();  // the () are important
+  FC_FUNC(mpi_get_fort_status,MPI_GET_FORT_STATUS)();  // the () are important
 
   initialized=1;
   return(MPI_SUCCESS);
@@ -295,11 +291,10 @@ int MPI_Initialized(int *flag)
 /**********/
 
 
-void FC_FUNC( mpi_save_fort_pointers, MPI_SAVE_FORT_POINTERS ) (int *status, int *statuses, int *in_place)
+void FC_FUNC( mpi_save_fort_status, MPI_SAVE_FORT_STATUS ) (int *status, int *statuses)
 {
   f_MPI_STATUS_IGNORE=status;
   f_MPI_STATUSES_IGNORE=statuses;
-  f_MPI_IN_PLACE=in_place;
 }
 
 
@@ -322,10 +317,3 @@ MPI_Status *mpi_c_statuses(int *statuses)
 }
 
 
-void *mpi_c_in_place(void *buffer)
-{
-  if (buffer==(void *)f_MPI_IN_PLACE)
-    return(MPI_IN_PLACE);
-
-  return(buffer);
-}
