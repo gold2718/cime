@@ -6,7 +6,7 @@
 
 
 #include "mpiP.h"
-#include "type.h"
+
 /*
  * handles.c
  *
@@ -33,7 +33,6 @@ typedef struct _Handleitem
     void *anything;           /* At least size of void *  */
     Comm comm;
     Req req;
-    Datatype* type;
 
   } data;
 
@@ -243,6 +242,8 @@ static void verify_handle(int handle, int block, int index)
       abort();
     }
 }
+
+
 
 void *mpi_handle_to_ptr(int handle)
 {
