@@ -7,12 +7,18 @@
       implicit none
         integer ierr
         integer ec
+	character*(MPI_MAX_LIBRARY_VERSION_STRING) version
+	integer vlen
+
         ec = 0
 #ifdef TEST_INTERNAL
         print *, "Using internal tests"
 #endif
 
         call mpi_init(ierr)
+
+	call MPI_GET_LIBRARY_VERSION(version,vlen,ierr)
+	print *,"MPI Version '",version,"' len=",vlen
 
         call test_contiguous(ec)
         call test_vector(ec)
@@ -223,8 +229,8 @@
         data index_test/1,2,5,6,8,9/
         print *, "Block indexed type"
 
-        call mpi_type_indexed_block(3,2,disps,mpi_integer, & 
-                        indexed_type, ierr)
+        call mpi_type_create_indexed_block(3,2,disps,mpi_integer, & 
+                                           indexed_type, ierr)
         call mpi_type_commit(indexed_type, ierr)
 #ifdef TEST_INTERNAL
         call copy_data2(a,1,indexed_type, b,1,indexed_type, ierr)

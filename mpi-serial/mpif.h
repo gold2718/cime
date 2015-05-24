@@ -136,10 +136,17 @@
 
         INTEGER MPI_STATUS_IGNORE(MPI_STATUS_SIZE)
         INTEGER MPI_STATUSES_IGNORE(MPI_STATUS_SIZE,1)
-
         COMMON /MPISERIAL/ MPI_STATUS_IGNORE
         COMMON /MPISERIAL/ MPI_STATUSES_IGNORE
 
+!
+! MPI_IN_PLACE
+!
+
+        INTEGER MPI_IN_PLACE
+        COMMON /MPISERIAL/ MPI_IN_PLACE
+
+        SAVE   /MPISERIAL/   ! Technically needed in case goes out of scope
 
 
 !
@@ -238,7 +245,17 @@
         integer MPI_COMPLEX32
         parameter (MPI_COMPLEX32= -42 )
 
+        integer MPI_LONG_LONG_INT
+        parameter (MPI_LONG_LONG_INT= -43)
 
+        integer MPI_LONG_LONG
+        parameter (MPI_LONG_LONG= MPI_LONG_LONG_INT)
+
+        integer MPI_UNSIGNED_LONG_LONG
+        parameter (MPI_UNSIGNED_LONG_LONG= -44)
+
+        integer MPI_OFFSET
+        parameter (MPI_OFFSET= -45)
         
 !
 ! MPI_Op values
@@ -289,9 +306,6 @@
 	INTEGER MPI_OFFSET_KIND
 	PARAMETER (MPI_OFFSET_KIND=selected_int_kind(13))
 
-	INTEGER MPI_INFO_NULL
-	PARAMETER (MPI_INFO_NULL=0)
-
 	INTEGER MPI_MODE_RDONLY
 	PARAMETER (MPI_MODE_RDONLY=0)
 
@@ -301,5 +315,20 @@
         INTEGER MPI_MODE_RDWR
         PARAMETER (MPI_MODE_RDWR=2)
 
+
+!
+! Info
+!
+
+        INTEGER MPI_INFO_NULL
+        PARAMETER (MPI_INFO_NULL=0)
+
+
+!
+! Library version string (must match C value)
+!
+
+        INTEGER MPI_MAX_LIBRARY_VERSION_STRING
+        PARAMETER (MPI_MAX_LIBRARY_VERSION_STRING=80)
 
 
