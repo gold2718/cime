@@ -2,6 +2,7 @@
 #ifndef _MPI_H_
 #define _MPI_H_
 
+#define MPI_MAX_LIBRARY_VERSION_STRING (80)
 
 typedef int MPI_Comm;
 typedef int MPI_Request;
@@ -67,6 +68,7 @@ typedef int MPI_Group;
 
 typedef unsigned long int MPI_Aint;
 #define MPI_BOTTOM (0)
+#define MPI_IN_PLACE (void *)(-1)
 typedef int MPI_Datatype;
 
 
@@ -98,9 +100,13 @@ typedef int MPI_Datatype;
 #define MPI_REAL              (-17)     // RML: why not (MPI_FLOAT)
 #define MPI_DOUBLE_PRECISION  (-18)     // RML: why not (MPI_DOUBLE)
 
-/* Handles -19 through -25 are only provided in mpif.h
- * If they're needed just copy values here.
- */ 
+#define MPI_COMPLEX           (-19)
+#define MPI_DOUBLE_COMPLEX    (-20)
+#define MPI_LOGICAL           (-21)
+#define MPI_CHARACTER         (-22)
+#define MPI_2REAL             (-23)
+#define MPI_2DOUBLE_PRECISION (-24)
+#define MPI_2INTEGER          (-25)
 
 //Reduction function types
 
@@ -127,6 +133,14 @@ typedef int MPI_Datatype;
 #define MPI_COMPLEX8       (-40)
 #define MPI_COMPLEX16      (-41)
 #define MPI_COMPLEX32      (-42)
+
+/* Some more types */
+
+#define MPI_LONG_LONG_INT       (-43)
+#define MPI_LONG_LONG           MPI_LONG_LONG_INT
+#define MPI_UNSIGNED_LONG_LONG  (-44)
+
+#define MPI_OFFSET              (-45)
 
 
 /*
@@ -208,6 +222,19 @@ typedef void MPI_User_function( void *invec, void *inoutvec, int *len,
 #define MPI_STATUS_SIZE       (sizeof(MPI_Status) / sizeof(int))
 
 
+/* NOTE: the C type MPI_Offset is NOT the same as MPI datatype MPI_OFFSET */
+typedef long long int MPI_Offset;
+
+
+/* info
+ */
+
+typedef int MPI_Info;         /* handle */
+
+#define MPI_INFO_NULL (0)
+
+
+
 /**********************************************************
  *
  * Note: if you need to regenerate the prototypes below,
@@ -265,6 +292,13 @@ extern int MPI_Alltoallv(void *sendbuf, int *sendcounts,
                          void *recvbuf, int *recvcounts,
                          int *rdispls, MPI_Datatype recvtype,
                          MPI_Comm comm) ;
+extern int MPI_Alltoallw(void *sendbuf, int *sendcounts,
+                         int *sdispls, MPI_Datatype *sendtypes,
+                         void *recvbuf, int *recvcounts,
+                         int *rdispls, MPI_Datatype *recvtypes,
+                         MPI_Comm comm) ;
+
+
 extern int MPI_Op_create(MPI_User_function *function, int commute,
                          MPI_Op *op);
 extern MPI_Op MPI_Op_f2c(MPI_Fint op);
@@ -299,6 +333,10 @@ extern int MPI_Finalize(void);
 extern int MPI_Abort(MPI_Comm comm, int errorcode);
 extern int MPI_Error_string(int errorcode, char *string, int *resultlen);
 extern int MPI_Get_processor_name(char *name, int *resultlen);
+
+extern int MPI_Info_create(MPI_Info *info);
+extern int MPI_Info_set(MPI_Info info, char *key, char *value);
+
 extern int MPI_Initialized(int *flag);
 extern int MPI_Pack( void *inbuf, int incount, MPI_Datatype datatype,
                      void *outbuf, int outsize, int *position, MPI_Comm comm);
@@ -365,10 +403,11 @@ extern int MPI_Type_hvector(int count, int blocklen, MPI_Aint stride,
 extern int MPI_Type_indexed(int count, int *blocklens, int *displacements,
                             MPI_Datatype oldtype, MPI_Datatype *newtype);
 
-extern int MPI_Type_indexed_block(int count, int blocklen, int *displacements, 
+extern int MPI_Type_create_indexed_block(int count, int blocklen, int *displacements, 
                                   MPI_Datatype oldtype, MPI_Datatype *newtype);
 extern int MPI_Type_hindexed(int count, int *blocklens, MPI_Aint *displacements, 
                              MPI_Datatype oldtype, MPI_Datatype *newtype);
+extern int MPI_Type_size(MPI_Datatype type, int * size);
 extern int MPI_Type_struct(int count, int *blocklens, MPI_Aint *displacements, 
                            MPI_Datatype *oldtypes, MPI_Datatype *newtype);
 extern int MPI_Type_dup(MPI_Datatype oldtype, MPI_Datatype *newtype);

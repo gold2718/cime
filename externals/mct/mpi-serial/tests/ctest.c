@@ -199,7 +199,7 @@ void test_simple_bindexed()
 
   //block indexed of simple types
   printf("\nBlock indexed type of MPI_INT.\n");
-  MPI_Type_indexed_block(3, 2, disps, MPI_INT, &indexed_type);
+  MPI_Type_create_indexed_block(3, 2, disps, MPI_INT, &indexed_type);
   MPI_Type_commit(&indexed_type);
 #ifdef TEST_INTERNAL
   copy_data(&a, &b, indexed_type);
@@ -925,7 +925,13 @@ void structtests()
 
 int main(int argc, char ** argv)
 {
+  char version[MPI_MAX_LIBRARY_VERSION_STRING];
+  int vlen;
+
   MPI_Init(&argc, &argv);
+  
+  MPI_Get_library_version(version,&vlen);
+  printf("MPI version=\"%s\" (len=%d)\n",version,vlen);
   
 //  structtests();
 //  indexed_test();
