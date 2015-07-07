@@ -1,0 +1,808 @@
+===============================================================================
+Originator: mvertens
+Date: Mar 09, 2015
+Model: dead7
+Version: dead7_8_04
+One-line summary: more changes needed for directory refactoring with cime/
+	
+M      xlnd/bld/xlnd.buildlib
+M      xwav/bld/xwav.buildlib
+M      xocn/bld/xocn.buildlib
+M      xice/bld/xice.buildlib
+M      xatm/bld/xatm.buildlib
+M      xglc/bld/xglc.buildlib
+M      xrof/bld/xrof.buildlib
+D      dead_share/dead_data_mod.F90
+D      dead_share/dead_mct_mod.F90
+D      dead_share/dead_mod.F90
+A      xshare/dead_data_mod.F90
+A      xshare/dead_mct_mod.F90
+A      xshare/dead_mod.F90
+	
+===============================================================================
+Originator: mvertens
+Date: Mar 02, 2015
+Model: dead7
+Version: dead7_8_03
+One-line summary: fix for xatm.buildnml xmlquery command
+
+M       xatm/bld/xatm.buildnml
+	
+===============================================================================
+Originator: mvertens
+Date: Mar 02, 2015
+Model: dead7
+Version: dead7_8_02
+One-line summary: changes needed for directory refactoring and introduction of cime
+	
+M       xatm/bld/xatm.buildlib
+M       xatm/bld/xatm.buildnml
+M       xglc/bld/xglc.buildlib
+M       xice/bld/xice.buildlib
+M       xlnd/bld/xlnd.buildlib
+M       xocn/bld/xocn.buildlib
+M       xrof/bld/xrof.buildlib
+M       xwav/bld/xwav.buildlib
+	
+===============================================================================
+Originator: mvertens
+Date: Feb 05, 2015
+Model: dead7
+Version: dead7_8_01
+One-line summary: refactor of dead buildnml and new buildlib scripts
+	
+D      xatm/bld/xatm.buildexe.csh
+A      xatm/bld/xatm.buildlib
+A      xatm/bld/xatm.buildnml
+D      xatm/bld/xatm.buildnml.csh
+	
+D      xglc/bld/xglc.buildexe.csh
+A      xglc/bld/xglc.buildlib
+A      xglc/bld/xglc.buildnml
+D      xglc/bld/xglc.buildnml.csh
+	
+D      xice/bld/xice.buildexe.csh
+A      xice/bld/xice.buildlib
+A      xice/bld/xice.buildnml
+D      xice/bld/xice.buildnml.csh
+	
+D      xlnd/bld/xlnd.buildexe.csh
+A      xlnd/bld/xlnd.buildlib
+A      xlnd/bld/xlnd.buildnml
+D      xlnd/bld/xlnd.buildnml.csh
+	
+D      xocn/bld/xocn.buildexe.csh
+A      xocn/bld/xocn.buildlib
+A      xocn/bld/xocn.buildnml
+D      xocn/bld/xocn.buildnml.csh
+	
+
+D      xrof/bld/xrof.buildexe.csh
+A      xrof/bld/xrof.buildlib
+A      xrof/bld/xrof.buildnml
+D      xrof/bld/xrof.buildnml.csh
+	
+D      xwav/bld/xwav.buildexe.csh
+A      xwav/bld/xwav.buildlib
+A      xwav/bld/xwav.buildnml
+D      xwav/bld/xwav.buildnml.csh
+
+       -- the following should have been deleted before	
+D      xocn/cpl_esmf
+D      xocn/cpl_esmf/ocn_comp_mct.F90
+	
+===============================================================================
+Originator: jedwards
+Date: Jul 03, 2014
+Model: dead7
+Version: dead7_8_00
+One-line summary: refactor so that most code is in share
+
+M    dead_share/dead_comp_mct.F90
+M    xlnd/cpl/lnd_comp_mct.F90
+M    xice/cpl/ice_comp_mct.F90
+M    xglc/cpl/glc_comp_mct.F90
+M    xrof/cpl/rof_comp_mct.F90
+M    xatm/cpl/atm_comp_mct.F90
+M    xocn/cpl/ocn_comp_mct.F90
+M    xwav/cpl/wav_comp_mct.F90
+
+
+
+===============================================================================
+Originator: tcraig
+Date: Feb 25, 2014
+Model: dead7
+Version: dead7_7_11
+One-line summary: fix redundant use statements
+
+M    xlnd/cpl/lnd_comp_mct.F90
+M    xice/cpl/ice_comp_mct.F90
+M    xglc/cpl/glc_comp_mct.F90
+M    xrof/cpl/rof_comp_mct.F90
+===============================================================================
+Originator: tcraig
+Date: Feb 20, 2014
+Model: dead7
+Version: dead7_7_10
+One-line summary: fix for DEBUG mode when gridsize is 0
+
+M       models/dead_share/dead_mod.F90
+===============================================================================
+Originator: mvertens
+Date: Sep 20, 2013
+Model: dead7
+Version: dead7_7_09
+One-line merge comptype branch to trunk
+	cpl_esmf is gone, cpl_mct is gone and cpl is new with both xxx_comp_esmf 
+	and xxx_comp_mct - this will only work with new cpl7 intrastructure in 
+	drvseq4_3_05 and beyond"
+
+
+D    xlnd/cpl_mct
+D    xlnd/cpl_esmf
+U    xlnd/bld/xlnd.buildexe.csh
+A    xlnd/cpl
+A    xlnd/cpl/lnd_comp_esmf.F90
+A    xlnd/cpl/lnd_comp_mct.F90
+D    xwav/cpl_mct
+D    xwav/cpl_esmf
+U    xwav/bld/xwav.buildexe.csh
+A    xwav/cpl
+A    xwav/cpl/wav_comp_esmf.F90
+A    xwav/cpl/wav_comp_mct.F90
+D    xocn/cpl_mct
+U    xocn/bld/xocn.buildexe.csh
+D    xocn/cpl_esmf/ocn_comp_esmf.F90
+A    xocn/cpl
+A    xocn/cpl/ocn_comp_esmf.F90
+A    xocn/cpl/ocn_comp_mct.F90
+D    xice/cpl_mct
+D    xice/cpl_esmf
+U    xice/bld/xice.buildexe.csh
+A    xice/cpl
+A    xice/cpl/ice_comp_esmf.F90
+A    xice/cpl/ice_comp_mct.F90
+D    xatm/cpl_mct
+D    xatm/cpl_esmf
+U    xatm/bld/xatm.buildexe.csh
+A    xatm/cpl
+A    xatm/cpl/atm_comp_mct.F90
+A    xatm/cpl/atm_comp_esmf.F90
+D    xglc/cpl_mct
+D    xglc/cpl_esmf
+U    xglc/bld/xglc.buildexe.csh
+A    xglc/cpl
+A    xglc/cpl/glc_comp_mct.F90
+A    xglc/cpl/glc_comp_esmf.F90
+D    xrof/cpl_mct
+D    xrof/cpl_esmf
+U    xrof/bld/xrof.buildexe.csh
+A    xrof/cpl
+A    xrof/cpl/rof_comp_mct.F90
+A    xrof/cpl/rof_comp_esmf.F90
+	
+===============================================================================
+Originator: tcraig
+Date: Sep 5, 2013
+Model: dead7
+Version: dead7_7_08
+One-line merge cplupa branch to trunk
+
+ - remove "sno interface" from cesm coupling
+ - add ifdef USE_ESMF_METADATA around esmf attribute calls
+ - modify intents on init/run/finalize coupling interfaces
+ - add control logical flags for new glc-ocn/ice and rof-ice coupling
+
+svn merge $SVNREPO/dead7/trunk_tags/dead7_7_06 $SVNREPO/dead7/branch_tags/cplupa_tags/cplupa_n05_dead7_7_06
+
+M       xlnd/cpl_mct/lnd_comp_mct.F90
+M       xlnd/cpl_esmf/lnd_comp_esmf.F90
+M       xlnd/cpl_esmf/lnd_comp_mct.F90
+M       xwav/cpl_mct/wav_comp_mct.F90
+M       xwav/cpl_esmf/wav_comp_esmf.F90
+M       xocn/cpl_mct/ocn_comp_mct.F90
+M       xocn/cpl_esmf/ocn_comp_esmf.F90
+M       xice/cpl_mct/ice_comp_mct.F90
+M       xice/cpl_esmf/ice_comp_esmf.F90
+M       xatm/cpl_mct/atm_comp_mct.F90
+M       xatm/cpl_esmf/atm_comp_esmf.F90
+M       xglc/cpl_mct/glc_comp_mct.F90
+M       xglc/cpl_esmf/glc_comp_esmf.F90
+M       xrof/cpl_mct/rof_comp_mct.F90
+M       xrof/cpl_esmf/rof_comp_esmf.F90
+===============================================================================
+Originator: tcraig
+Date: Mar 25 2013
+Model: dead7
+Version: dead7_7_06
+One-line add flood logical to xrof input
+- set by XROF_FLOOD_MODE env variable
+
+M       bld/xrof.buildnml.csh
+M       cpl_mct/rof_comp_mct.F90
+M       cpl_esmf/rof_comp_esmf.F90
+===============================================================================
+Originator: tcraig
+Date: Mar 13 2013
+Model: dead7
+Version: dead7_7_05
+One-line update wav model, add automatic present=false feature
+
+ - all dead models will now set their present flag to false if the
+   global grid size is 0.  this allows X configurations to run with
+   null grids
+ - modify some fake dead model coupling fields, this will affect bfb 
+ - fix exact restart problem in xatm
+ - update xwav model to current coupling standard, validate esmf interfaces
+   and multi instance.
+ - work around esmf core dump on esmf wav_finalize when destroying
+   esmf datatypes (bug #1640)
+
+M       xlnd/cpl_mct/lnd_comp_mct.F90
+M       xlnd/cpl_esmf/lnd_comp_esmf.F90
+M       xwav/cpl_mct/wav_comp_mct.F90
+M       xwav/cpl_esmf/wav_comp_esmf.F90
+M       xwav/cpl_esmf/wav_comp_mct.F90
+M       xocn/cpl_mct/ocn_comp_mct.F90
+M       xocn/cpl_esmf/ocn_comp_esmf.F90
+M       xice/cpl_mct/ice_comp_mct.F90
+M       xice/cpl_esmf/ice_comp_esmf.F90
+M       xatm/cpl_mct/atm_comp_mct.F90
+M       xatm/cpl_esmf/atm_comp_esmf.F90
+M       xglc/cpl_mct/glc_comp_mct.F90
+M       xglc/cpl_esmf/glc_comp_esmf.F90
+M       xrof/cpl_mct/rof_comp_mct.F90
+M       xrof/cpl_esmf/rof_comp_esmf.F90
+
+===============================================================================
+Originator: tcraig
+Date: Sep 13 2012
+Model: dead7
+Version: dead7_7_04
+One-line decomp implementation update
+
+M       dead_share/dead_mod.F90
+===============================================================================
+Originator: tcraig
+Date: Sep 13 2012
+Model: dead7
+Version: dead7_7_03
+One-line decomp flexibility for xatm
+
+M       xatm/bld/xatm.buildnml.csh
+===============================================================================
+Originator: tcraig
+Date: Aug 28 2012
+Model: dead7
+Version: dead7_7_02
+One-line xrof bug fix
+
+M       xrof/cpl_esmf/rof_comp_mct.F90
+===============================================================================
+Originator: tcraig
+Date: Aug 27 2012
+Model: dead7
+Version: dead7_7_01
+One-line Split lnd into lnd and rof
+
+M       xlnd/bld/xlnd.buildnml.csh
+M       xlnd/cpl_mct/lnd_comp_mct.F90
+M       xlnd/cpl_esmf/lnd_comp_esmf.F90
+M       xlnd/cpl_esmf/lnd_comp_mct.F90
+A       xrof
+A       xrof/bld
+A       xrof/bld/xrof.buildnml.csh
+A       xrof/bld/xrof.buildexe.csh
+A       xrof/cpl_mct
+A       xrof/cpl_mct/rof_comp_mct.F90
+A       xrof/cpl_esmf
+A       xrof/cpl_esmf/rof_comp_mct.F90
+A       xrof/cpl_esmf/rof_comp_esmf.F90
+===============================================================================
+Originator: mvertens
+Date: June 5 2012
+Model: dead7
+Version: dead7_6_05
+One-line More bug fixes for lnd runoff 
+
+M       xlnd/bld/xlnd.buildnml.csh
+	
+===============================================================================
+Originator: mvertens
+Date: June 2 2012
+Model: dead7
+Version: dead7_6_04
+One-line Bug fixes 
+
+M       xlnd/bld/xlnd.buildnml.csh
+M       xglc/bld/xglc.buildexe.csh
+
+===============================================================================
+Originator: mvertens
+Date: May 28 2012
+Model: dead7
+Version: dead7_6_03
+One-line Removed xccc.template and added xccc.buildexe.csh and xccc.buildnml.csh
+	 where ccc is atm,ice,lnd,ocn, glc, wav
+	
+D       bld/xatm.template
+A       bld/xatm.buildexe.csh
+A       bld/xatm.buildnml.csh
+D       bld/xice.template
+A       bld/xice.buildexe.csh
+A       bld/xice.buildnml.csh
+D       bld/xlnd.template
+A       bld/xlnd.buildexe.csh
+A       bld/xlnd.buildnml.csh
+D       bld/xocn.template
+A       bld/xocn.buildexe.csh
+A       bld/xocn.buildnml.csh
+D       bld/xglc.template
+A       bld/xglc.buildexe.csh
+A       bld/xglc.buildnml.csh
+D       bld/xwav.template
+A       bld/xwav.buildexe.csh
+A       bld/xwav.buildnml.csh
+	
+===============================================================================
+Originator: tcraig
+Date: Jan 26 2012
+Model: dead7
+Version: dead7_6_02
+One-line summary: fix use of Sl_landfrac field deletion, fix some subname strings
+
+U    xlnd/cpl_mct/lnd_comp_mct.F90
+U    xocn/cpl_mct/ocn_comp_mct.F90
+U    xice/cpl_mct/ice_comp_mct.F90
+U    xatm/cpl_mct/atm_comp_mct.F90
+U    xglc/cpl_mct/glc_comp_mct.F90
+	
+===============================================================================
+Originator: tcraig
+Date: Jan 23 2012
+Model: dead7
+Version: dead7_6_01
+One-line summary: update for esmf 520r, add support for multi-instances with
+	esmf interfaces, merge of e52r02_dead7_5_04 to trunk
+
+UU   xlnd/cpl_mct/lnd_comp_mct.F90
+U    xlnd/cpl_esmf/lnd_comp_esmf.F90
+U    xlnd/cpl_esmf/lnd_comp_mct.F90
+UU   xocn/cpl_mct/ocn_comp_mct.F90
+U    xocn/cpl_esmf/ocn_comp_esmf.F90
+U    xocn/cpl_esmf/ocn_comp_mct.F90
+UU   xice/cpl_mct/ice_comp_mct.F90
+U    xice/cpl_esmf/ice_comp_esmf.F90
+U    xice/cpl_esmf/ice_comp_mct.F90
+ U   xice/cpl_esmf
+UU   xatm/cpl_mct/atm_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_esmf.F90
+UU   xglc/cpl_mct/glc_comp_mct.F90
+U    xglc/cpl_esmf/glc_comp_mct.F90
+U    xglc/cpl_esmf/glc_comp_esmf.F90
+===============================================================================
+Originator: tcraig
+Date: Dec 30 2011
+Model: dead7
+Version: dead7_5_04
+One-line summary: add xwav
+	
+A       xwav
+A       xwav/bld
+A       xwav/bld/xwav.template
+A       xwav/cpl_mct
+A       xwav/cpl_mct/wav_comp_mct.F90
+A       xwav/cpl_esmf
+A       xwav/cpl_esmf/wav_comp_esmf.F90
+A       xwav/cpl_esmf/wav_comp_mct.F90
+	
+===============================================================================
+Originator: mvertens
+Date: Nov 27 2011
+Model: dead7
+Version: dead7_5_03
+One-line summary: remove references to seq_flds_indices
+	
+M       xglc/cpl_mct/glc_comp_mct.F90
+M       xglc/cpl_esmf/glc_comp_esmf.F90
+	
+===============================================================================
+Originator: tcraig
+Date: Jul 17 2011
+Model: dead7
+Version: dead7_5_02
+One-line summary: extend ensemble capability to esmf interfaces
+
+U    xlnd/cpl_esmf/lnd_comp_esmf.F90
+U    xlnd/cpl_esmf/lnd_comp_mct.F90
+U    xocn/cpl_esmf/ocn_comp_esmf.F90
+U    xocn/cpl_esmf/ocn_comp_mct.F90
+U    xice/cpl_esmf/ice_comp_esmf.F90
+U    xice/cpl_esmf/ice_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_esmf.F90
+U    xglc/cpl_esmf/glc_comp_mct.F90
+U    xglc/cpl_esmf/glc_comp_esmf.F90
+===============================================================================
+Originator: tcraig
+Date: Jun 27 2011
+Model: dead7
+Version: dead7_5_01
+One-line summary: add ensemble capabilities to mct versions
+
+M       xlnd/bld/xlnd.template
+M       xlnd/cpl_mct/lnd_comp_mct.F90
+M       xocn/bld/xocn.template
+M       xocn/cpl_mct/ocn_comp_mct.F90
+M       xice/bld/xice.template
+M       xice/cpl_mct/ice_comp_mct.F90
+M       xatm/bld/xatm.template
+M       xatm/cpl_mct/atm_comp_mct.F90
+M       xglc/bld/xglc.template
+M       xglc/cpl_mct/glc_comp_mct.F90
+
+===============================================================================
+Originator: tcraig
+Date: Apr 19 2011
+Model: dead7
+Version: dead7_4_08
+One-line summary: update ESMF interface
+
+M       cpl_esmf/atm_comp_mct.F90
+M       cpl_esmf/atm_comp_esmf.F90
+M       cpl_esmf/lnd_comp_esmf.F90
+M       cpl_esmf/lnd_comp_mct.F90
+M       cpl_esmf/ocn_comp_esmf.F90
+M       cpl_esmf/ocn_comp_mct.F90
+M       cpl_esmf/ice_comp_esmf.F90
+M       cpl_esmf/ice_comp_mct.F90
+M       cpl_esmf/glc_comp_mct.F90
+M       cpl_esmf/glc_comp_esmf.F90
+	
+===============================================================================
+Originator: mvertens
+Date: Wed Jan 18 2011
+Model: dead7
+Version: dead7_4_07
+One-line summary: removed use of seq_flds_indices
+
+M       models/atm/xatm/cpl_mct/atm_comp_mct.F90
+M       models/atm/xatm/cpl_esmf/atm_comp_esmf.F90
+M       models/lnd/xlnd/cpl_mct/lnd_comp_mct.F90
+M       models/lnd/xlnd/cpl_esmf/lnd_comp_esmf.F90
+M       models/ice/xice/cpl_mct/ice_comp_mct.F90
+M       models/ice/xice/cpl_esmf/ice_comp_esmf.F90
+M       models/ocn/xocn/cpl_mct/ocn_comp_mct.F90
+M       models/ocn/xocn/cpl_esmf/ocn_comp_esmf.F90
+M       models/glc/xglc/cpl_mct/glc_comp_mct.F90
+M       models/glc/xglc/cpl_esmf/glc_comp_esmf.F90
+	
+===============================================================================
+Originator: tcraig
+Date: Wed Jan 5 2010
+Model: dead7
+Version: dead7_4_06
+One-line summary: add esmf metadata feature and update esmf register routine
+
+>svn merge $SVNREPO/dead7/trunk $SVNREPO/dead7/branches/cesm1_0_esmf01
+
+U    xlnd/cpl_esmf/lnd_comp_esmf.F90
+U    xlnd/cpl_esmf/lnd_comp_mct.F90
+U    xocn/cpl_esmf/ocn_comp_esmf.F90
+U    xocn/cpl_esmf/ocn_comp_mct.F90
+U    xice/cpl_esmf/ice_comp_esmf.F90
+U    xice/cpl_esmf/ice_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_esmf.F90
+U    xglc/cpl_esmf/glc_comp_mct.F90
+U    xglc/cpl_esmf/glc_comp_esmf.F90
+
+===============================================================================
+Originator: tcraig
+Date: Sat Apr 17 2010
+Model: dead7
+Version: dead7_4_05
+One-line summary: add new runoff support
+
+M    xlnd/bld/xlnd.template
+
+===============================================================================
+Originator: tcraig
+Date: Thu Feb 18 2010
+Model: dead7
+Version: dead7_4_04
+One-line summary: update runoff samegrid support in xlnd
+
+M    xlnd/bld/xlnd.template
+
+===============================================================================
+Originator: tcraig
+Date: Sat Sep 26 2009
+Model: dead7
+Version: dead7_4_03
+One-line summary: esmf updates
+
+ - use new shared esmf interface in drv/seq_mct/cpl_esmf
+ - clean up redundant code
+ - fix a few bugs (mpicom, infodata/export_state/infodata copy)
+ - lots more testing and validation
+	
+D    dead_share/esmfshr_dead_mod.F90
+U    xlnd/cpl_esmf/lnd_comp_esmf.F90
+U    xlnd/cpl_esmf/lnd_comp_mct.F90
+U    xocn/cpl_esmf/ocn_comp_esmf.F90
+U    xocn/cpl_esmf/ocn_comp_mct.F90
+U    xice/cpl_esmf/ice_comp_esmf.F90
+U    xice/cpl_esmf/ice_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_mct.F90
+U    xatm/cpl_esmf/atm_comp_esmf.F90
+U    xglc/cpl_esmf/glc_comp_mct.F90
+U    xglc/cpl_esmf/glc_comp_esmf.F90
+	
+===============================================================================
+Originator: feiliu
+Date: Wed Sep 16 2009
+Model: dead7
+Version: dead7_4_02
+One-line summary: updates for esmf support
+
+ - added files to support dead model running with esmf
+
+A    dead_share/esmfshr_dead_mod.F90
+A    xlnd/cpl_esmf/lnd_comp_esmf.F90
+A    xlnd/cpl_esmf/lnd_comp_mct.F90
+A    xocn/cpl_esmf/ocn_comp_esmf.F90
+A    xocn/cpl_esmf/ocn_comp_mct.F90
+A    xice/cpl_esmf/ice_comp_esmf.F90
+A    xice/cpl_esmf/ice_comp_mct.F90
+A    xatm/cpl_esmf/atm_comp_mct.F90
+A    xatm/cpl_esmf/atm_comp_esmf.F90
+A    xglc/cpl_esmf/glc_comp_mct.F90
+A    xglc/cpl_esmf/glc_comp_esmf.F90
+	
+===============================================================================
+Originator: tcraig
+Date: Mon Sep 7 2009
+Model: dead7
+Version: dead7_4_01
+One-line summary: updates for esmf support
+
+ - add cpl_mct and cpl_esmf dirs and populate
+ - add bld dir and populate with template file from scripts
+
+similar for all components:
+D      atm_comp_mct.F90
+A      cpl_mct
+A  +   cpl_mct/atm_comp_mct.F90
+A      bld
+A      bld/xatm.template
+A      cpl_esmf
+	
+================================================================================
+Originator: tcraig
+Date: 
+Model: dead7
+Version: dead7_3_01
+One-line summary: add xglc, update all dead models
+
+- delete SVN_EXTERNAL_DIRECTORIES and bld dir
+- implement proper log files and logging in dead models
+  including use of shr log unit setting
+- refactor input data read to be done on root pe and broadcast
+  instead of all pe read
+- add sno component to xlnd model
+- add xglc component
+- send zeros at initialization from all dead components to
+  make exact restart test more robust.
+
+Changes made:
+M    dead_share/dead_mod.F90
+M    dead_share/dead_mct_mod.F90
+M    xlnd/lnd_comp_mct.F90
+M    xocn/ocn_comp_mct.F90
+M    xice/ice_comp_mct.F90
+M    xatm/atm_comp_mct.F90
+A    xglc
+A    xglc/glc_comp_mct.F90
+D    SVN_EXTERNAL_DIRECTORIES
+
+================================================================================
+Originator: tcraig
+Date: Thu Sep 11 2008
+Model: dead7
+Version: dead7_2_0_03
+One-line summary: fix bug detected by lahey compiler
+
+-   real(R8)   ,intent(out),pointer:: gbuf(:,:)  ! output data
++   real(R8)   ,pointer    :: gbuf(:,:)       ! output data
+
+Changes made:
+   M  dead_share/dead_mod.F90
+
+================================================================================
+Originator: tcraig
+Date: Thu Sep 11 2008
+Model: dead7
+Version: dead7_2_0_02
+One-line summary: fix X case on jaguar + other minor improvements
+
+- fix X case on jaguar, change gbuf from allocatable to pointer
+- check optional arguments in dead_mod.F90 dead_setNewGrid interface
+- make dead_mod private
+
+Changes made:
+   M  dead_share/dead_mod.F90
+   M  xlnd/lnd_comp_mct.F90
+   M  xocn/ocn_comp_mct.F90
+   M  xice/ice_comp_mct.F90
+   M  xatm/atm_comp_mct.F90
+
+================================================================================
+Originator: tcraig
+Date: Wed Apr 16 2008
+Model: dead7
+Version: dead7_2_0_01
+One-line summary: Updates for dead model to run fully prognostic for testing
+
+- update decomps to support segmented, padded, etc
+- reduce "2d" grid assumptions and simplify
+- set dead model flags to fully prognostic for coupler testing
+- zero out domain attr vect on initialization
+	
+================================================================================
+Originator: tcraig
+Date: Thu Nov 22 2007
+Model: dead7
+Version: dead7_1_0_15
+One-line summary: updates for ccsm4_0_alpha11
+	
+- migrate from shr_inputinfo, eshr_timemgr, ccsminit, SyncClock to
+  seq_infodata, seq_timemgr, infodata, EClock. 
+- changed init/run/final interface arguments
+- change cdata from ccsminit to infodata in cdata
+- modify ALL _*comp_mct files.
+- add seq_infodata_mod and seq_timemgr_mod to seq_mct.
+	
+================================================================================
+Originator: tcraig
+Date: Thu Nov 22 2007
+Model: dead7
+Version: dead7_1_0_14
+One-line summary: updates to support dead components running fully operational in driver
+	
+- removes hardwired field names in gGrid_init
+- adds frac initialization
+- updates area calculation and lon/lat calculation
+	
+================================================================================
+Originator: tcraig
+Date: Mon Oct 29 18:57:56 MDT 2007
+Model: dead7
+Version: dead7_1_0_13
+One-line summary: extend dead7 decomp strategy
+
+Changes made:
+   M  dead_share/dead_mod.F90
+      - extend dead7 decomp strategy
+   M  xlnd/lnd_comp_mct.F90
+   M  xocn/ocn_comp_mct.F90
+   M  xice/ice_comp_mct.F90
+   M  xatm/atm_comp_mct.F90
+      - remove STOPNOW write statement
+
+================================================================================
+Version: dead7_1_0_12
+NOTE: dead7_1_0_12 is not documented but includes one change
+in xlnd/lnd_comp_mct to set the rof_present in shr_inputinfo.
+================================================================================
+
+Originator: mvertens
+Date: Thu Jun 14 15:20:53 MDT 2007
+Model: dead7
+Version: dead7_1_0_11
+One-line summary: fixed dead components bug that referenced mpicom before setting
+
+Changes made:
+   M  SVN_EXTERNAL_DIRECTORIES
+      - updated to latest versions
+   M  xlnd/lnd_comp_mct.F90
+   M  xocn/ocn_comp_mct.F90
+   M  xice/ice_comp_mct.F90
+   M  xatm/atm_comp_mct.F90
+      - set mpicom before using it
+	
+================================================================================
+
+Originator: mvertens
+Date: Sat Apr  7 15:06:56 MDT 2007
+Model: dead7
+oersion: dead7_1_0_10
+One-line summary: put in changes to turn on river runoff mapping 
+
+Changes made:
+	
+    M  SVN_EXTERNAL_DIRECTORIES
+         updated to: 	 
+       - drv/seq_mct drv/seq_mct/trunk_tags/drvseq1_0_31
+       - csm_share   csm_share/branch_tags/cpl7_share3_070410_tags/cpl708_share3_070410
+    M  dead_share/dead_mct_mod.F90
+       - fixed computation of GlobGridNum using call to mct_gsMap_orderedPoints	
+    M  bld/configure
+       - removed reference to csm_share/flds (no longer needed)
+    M  xlnd/lnd_comp_mct.F90
+    M  xocn/ocn_comp_mct.F90
+    M  xice/ice_comp_mct.F90
+    M  xatm/atm_comp_mct.F90
+       - removed all references to infobuf, only write diag output if master task	
+	
+================================================================================
+
+Originator: mvertens
+Date: Sat Apr  7 15:06:56 MDT 2007
+Model: dead7
+oersion: dead7_1_0_9
+One-line summary: put in changes to turn on river runoff mapping 
+
+Changes made:
+	
+    M  bld/xatm_in
+    M  bld/xlnd_in
+    M  bld/xocn_in
+    M  bld/xice_in
+       - default is now T31_gx3v5 with river runoff mapping
+    M  SVN_EXTERNAL_DIRECTORIES
+       - updated dead components to seqdrv1_0_21 and share3_070408
+    M  xlnd/lnd_comp_mct.F90
+       - put in capability to do river runoff and to turn it on	 
+       - added following flags to infobuf 	 
+         infobuf%ibuf(ibuf_dead) = 1
+         infobuf_r%ibuf(ibuf_rtm_present) = 1  
+    M  xatm/atm_comp_mct.F90
+       - added following flags to infobuf 	
+         infobuf%ibuf(ibuf_xalbic) = 0  
+         infobuf%ibuf(ibuf_active_atm) = 0  
+         infobuf%ibuf(ibuf_dead) = 1
+         infobuf%rbuf(rbuf_nextsw_cday) = eshr_timemgr_clockGetCalDay( SyncClock )
+
+================================================================================
+
+Originator: mvertens
+Date: Sat Apr  7 15:06:56 MDT 2007
+Model: dead7
+oersion: dead7_1_0_8
+One-line summary: update dead to use hourly coupling code
+
+Changes made:
+ - updated dead components to seqdrv1_0_20
+
+
+================================================================================
+
+Originator: robj
+Date: Wed Mar 21 12:58:34 MDT 2007
+Model: dead7
+oersion: dead7_1_0_7
+One-line summary: update dead to use low memory map
+
+
+Changes made:
+ - use low memory mapping routine for different grids.
+ - update to share3_070321 and drvseq1_0_14.
+
+================================================================================
+
+Originator: robj
+Date: Wed Mar 14 15:01:26 MDT 2007
+Model: dead7
+oersion: dead7_1_0_6
+One-line summary: update to use mct_mod and new timer.
+
+
+Changes made:
+ - modify all dead models and dead_share to use mct_mod
+ - update external module to use drvseq1_0_12 and
+   timing_070308
+
+===============================================================================

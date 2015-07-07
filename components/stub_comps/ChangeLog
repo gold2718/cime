@@ -1,0 +1,381 @@
+Stubs ChangeLog
+
+================================================================================
+Originator: mvertens
+Date: Mar 9 2015
+Model: stubs
+Version: stubs1_4_08
+One-line summary: changes needed for directory refactoring and introduction of cime
+	
+M      slnd/bld/slnd.buildlib
+M      swav/bld/swav.buildlib
+M      socn/bld/socn.buildlib
+M      sice/bld/sice.buildlib
+M      satm/bld/satm.buildlib
+M      sglc/bld/sglc.buildlib
+M      srof/bld/srof.buildlib
+	
+================================================================================
+Originator: mvertens
+Date: Mar 1 2015
+Model: stubs
+Version: stubs1_4_07
+One-line summary: changes needed for directory refactoring and introduction of cime
+	
+M       satm/bld/satm.buildlib
+M       sglc/bld/sglc.buildlib
+M       sice/bld/sice.buildlib
+M       slnd/bld/slnd.buildlib
+M       socn/bld/socn.buildlib
+M       srof/bld/srof.buildlib
+M       swav/bld/swav.buildlib
+	
+================================================================================
+Originator: mvertens
+Date: Feb 5 2015
+Model: stubs
+Version: stubs1_4_05
+One-line summary: mods for major testing refactor
+	
+D     satm/bld/satm.buildexe.csh
+A     satm/bld/satm.buildlib
+A     satm/bld/satm.buildnml
+D     satm/bld/satm.buildnml.csh
+
+D     sglc/bld/sglc.buildexe.csh
+A     sglc/bld/sglc.buildlib
+A     sglc/bld/sglc.buildnml
+D     sglc/bld/sglc.buildnml.csh
+
+D     sice/bld/sice.buildexe.csh
+A     sice/bld/sice.buildlib
+A     sice/bld/sice.buildnml
+D     sice/bld/sice.buildnml.csh
+
+D     slnd/bld/slnd.buildexe.csh
+A     slnd/bld/slnd.buildlib
+A     slnd/bld/slnd.buildnml
+D     slnd/bld/slnd.buildnml.csh
+
+D     socn/bld/socn.buildexe.csh
+A     socn/bld/socn.buildlib
+A     socn/bld/socn.buildnml
+D     socn/bld/socn.buildnml.csh
+  	
+D     srof/bld/srof.buildexe.csh
+A     srof/bld/srof.buildlib
+A     srof/bld/srof.buildnml
+D     srof/bld/srof.buildnml.csh
+  	
+D     swav/bld/swav.buildexe.csh
+A     swav/bld/swav.buildlib
+A     swav/bld/swav.buildnml
+D     swav/bld/swav.buildnml.csh
+	
+================================================================================
+Originator: mvertens
+Date: Sep 20 2012
+Model: stubs
+Version: stubs1_4_04
+One-line summary: merge comptype branch to trunk
+	cpl_esmf is gone, cpl_mct is gone and cpl is new with both xxx_comp_esmf 
+	and xxx_comp_mct - this will only work with new cpl7 intrastructure in 
+	drvseq4_3_05 and beyond"
+
+New directory structure:
+D    slnd/cpl_mct
+D    slnd/cpl_esmf
+U    slnd/bld/slnd.buildexe.csh
+A    slnd/cpl
+A    slnd/cpl/lnd_comp_esmf.F90
+A    slnd/cpl/lnd_comp_mct.F90
+D    swav/cpl_mct
+D    swav/cpl_esmf
+U    swav/bld/swav.buildexe.csh
+A    swav/cpl
+A    swav/cpl/wav_comp_esmf.F90
+A    swav/cpl/wav_comp_mct.F90
+D    socn/cpl_mct
+D    socn/cpl_esmf
+U    socn/bld/socn.buildexe.csh
+A    socn/cpl
+A    socn/cpl/ocn_comp_esmf.F90
+A    socn/cpl/ocn_comp_mct.F90
+D    sice/cpl_mct
+D    sice/cpl_esmf
+U    sice/bld/sice.buildexe.csh
+A    sice/cpl
+A    sice/cpl/ice_comp_esmf.F90
+A    sice/cpl/ice_comp_mct.F90
+D    satm/cpl_mct
+D    satm/cpl_esmf
+U    satm/bld/satm.buildexe.csh
+A    satm/cpl
+A    satm/cpl/atm_comp_mct.F90
+A    satm/cpl/atm_comp_esmf.F90
+D    sglc/cpl_mct
+D    sglc/cpl_esmf
+U    sglc/bld/sglc.buildexe.csh
+A    sglc/cpl
+A    sglc/cpl/glc_comp_mct.F90
+A    sglc/cpl/glc_comp_esmf.F90
+D    srof/cpl_mct
+D    srof/cpl_esmf
+U    srof/bld/srof.buildexe.csh
+A    srof/cpl
+A    srof/cpl/rof_comp_mct.F90
+A    srof/cpl/rof_comp_esmf.F90
+
+The xxx_comp_esmf routines have an #if ESMF_INTERFACE bracketing the module code	
+	
+================================================================================
+Originator: tcraig
+Date: Sep 5 2012
+Model: stubs
+Version: stubs1_4_03
+One-line summary: merge cplupa branch to trunk
+
+merge cplupa branch
+ - remove "sno interface" from cesm coupling
+ - modify intents on init/run/finalize coupling interfaces
+ - add ifdef USE_ESMF_METADATA around esmf attribute calls
+ - add control logical flags for new glc-ocn/ice and rof-ice coupling
+
+svn merge $SVNREPO/stubs/trunk_tags/stubs1_4_02 $SVNREPO/stubs/branch_tags/cplupa_tags/cplupa_n04_stubs1_4_02
+
+M       slnd/cpl_mct/lnd_comp_mct.F90
+M       slnd/cpl_esmf/lnd_comp_esmf.F90
+M       slnd/cpl_esmf/lnd_comp_mct.F90
+M       swav/cpl_mct/wav_comp_mct.F90
+M       swav/cpl_esmf/wav_comp_esmf.F90
+M       socn/cpl_mct/ocn_comp_mct.F90
+M       socn/cpl_esmf/ocn_comp_esmf.F90
+M       sice/cpl_mct/ice_comp_mct.F90
+M       sice/cpl_esmf/ice_comp_esmf.F90
+M       satm/cpl_mct/atm_comp_mct.F90
+M       satm/cpl_esmf/atm_comp_esmf.F90
+M       sglc/cpl_mct/glc_comp_mct.F90
+M       sglc/cpl_esmf/glc_comp_esmf.F90
+M       srof/cpl_mct/rof_comp_mct.F90
+M       srof/cpl_esmf/rof_comp_esmf.F90
+================================================================================
+Originator: tcraig
+Date: Mar 13 2012
+Model: stubs
+Version: stubs1_4_02
+One-line summary: update swav to cesm1_2_beta02
+
+M       models/wav/swav/cpl_mct/wav_comp_mct.F90
+M       models/wav/swav/cpl_esmf/wav_comp_esmf.F90
+M       models/wav/swav/cpl_esmf/wav_comp_mct.F90
+
+================================================================================
+Originator: tcraig
+Date: Aug 27 2012
+Model: stubs
+Version: stubs1_4_01
+One-line cleanup, flood_present=false, esmf working
+
+M    satm/cpl_esmf/atm_comp_esmf.F90
+ M   srof/bld/srof.buildexe.csh
+ M   srof/bld/srof.buildnml.csh
+M    srof/cpl_mct/rof_comp_mct.F90
+M    srof/cpl_esmf/rof_comp_esmf.F90
+================================================================================
+Originator: mvertens
+Date: Aug 4 2012
+Model: stubs
+Version: stubs1_3_06
+One-line Added new stub for rof component - and removed rof from slnd stub code
+
+A         srof
+A         srof/bld
+A         srof/bld/srof.buildexe.csh
+A         srof/bld/srof.buildnml.csh
+A         srof/cpl_esmf
+A         srof/cpl_esmf/rof_comp_esmf.F90
+A         srof/cpl_esmf/rof_comp_mct.F90
+A         srof/cpl_mct
+A         srof/cpl_mct/rof_comp_mct.F90
+M         satm/cpl_esmf/atm_comp_mct.F90
+M         sice/cpl_esmf/ice_comp_mct.F90
+M         slnd/cpl_esmf/lnd_comp_mct.F90
+M         slnd/cpl_mct/lnd_comp_mct.F90
+
+================================================================================
+Originator: mvertens
+Date: Aug 4 2012
+Model: stubs
+Version: stubs1_3_05
+One-line Fixed esmf compilation bug
+
+M       satm/cpl_esmf/atm_comp_mct.F90
+	
+================================================================================
+Originator: mvertens
+Date: June 3 2012
+Model: stubs
+Version: stubs1_3_04
+One-line Fixed bugs
+
+M       swav/bld/swav.buildnml.csh
+M       satm/bld/satm.buildnml.csh
+	
+================================================================================
+Originator: mvertens
+Date: May 28 2012
+Model: stubs
+Version: stubs1_3_03
+One-line Removed sccc.template and added sccc.buildexe.csh and sccc.buildnml.csh
+	 where ccc is atm,ice,lnd,ocn, glc, wav
+
+D       satm/bld/satm.template
+A       satm/bld/satm.buildexe.csh
+A       satm/bld/satm.buildnml.csh
+D       sice/bld/sice.template
+A       sice/bld/sice.buildexe.csh
+A       sice/bld/sice.buildnml.csh
+D       slnd/bld/slnd.template
+A       slnd/bld/slnd.buildexe.csh
+A       slnd/bld/slnd.buildnml.csh
+D       socn/bld/socn.template
+A       socn/bld/socn.buildexe.csh
+A       socn/bld/socn.buildnml.csh
+D       sglc/bld/sglc.template
+A       sglc/bld/sglc.buildexe.csh
+A       sglc/bld/sglc.buildnml.csh
+D       swav/bld/swav.template
+A       swav/bld/swav.buildexe.csh
+A       swav/bld/swav.buildnml.csh
+	
+================================================================================
+Originator: tcraig
+Date: Apr 18 2012
+Model: stubs
+Version: stubs1_3_02
+One-line summary: Make satm present=.false.
+
+U    satm/cpl_mct/atm_comp_mct.F90
+	
+================================================================================
+Originator: tcraig
+Date: Jan 23 2012
+Model: stubs
+Version: stubs1_3_01
+One-line summary: Update ESMF interfaces to 5.2.0r standard, add support
+  for multi-instance for esmf interfaces
+
+UU   slnd/cpl_mct/lnd_comp_mct.F90
+U    slnd/cpl_esmf/lnd_comp_esmf.F90
+U    slnd/cpl_esmf/lnd_comp_mct.F90
+UU   socn/cpl_mct/ocn_comp_mct.F90
+U    socn/cpl_esmf/ocn_comp_esmf.F90
+U    socn/cpl_esmf/ocn_comp_mct.F90
+UU   sice/cpl_mct/ice_comp_mct.F90
+U    sice/cpl_esmf/ice_comp_esmf.F90
+U    sice/cpl_esmf/ice_comp_mct.F90
+UU   satm/cpl_mct/atm_comp_mct.F90
+U    satm/cpl_esmf/atm_comp_mct.F90
+U    satm/cpl_esmf/atm_comp_esmf.F90
+U    sglc/cpl_mct/glc_comp_mct.F90
+U    sglc/cpl_esmf/glc_comp_mct.F90
+U    sglc/cpl_esmf/glc_comp_esmf.F90
+================================================================================
+Originator: tcraig
+Date: Dec 30 2011
+Model: stubs
+Version: stubs1_2_05
+One-line summary: Add swav model
+
+A       swav
+A       swav/bld
+A       swav/bld/swav.template
+A       swav/cpl_mct
+A       swav/cpl_mct/wav_comp_mct.F90
+A       swav/cpl_esmf
+A       swav/cpl_esmf/wav_comp_esmf.F90
+A       swav/cpl_esmf/wav_comp_mct.F90
+================================================================================
+Originator: tcraig
+Date: Apr 19 2011
+Model: stubs
+Version: stubs1_2_04
+One-line summary: Update ESMF interfaces
+
+M       satm/cpl_esmf/atm_comp_mct.F90
+M       satm/cpl_esmf/atm_comp_esmf.F90
+M       slnd/cpl_esmf/lnd_comp_esmf.F90
+M       slnd/cpl_esmf/lnd_comp_mct.F90
+M       socn/cpl_esmf/ocn_comp_esmf.F90
+M       socn/cpl_esmf/ocn_comp_mct.F90
+M       sice/cpl_esmf/ice_comp_esmf.F90
+M       sice/cpl_esmf/ice_comp_mct.F90
+M       sglc/cpl_esmf/glc_comp_mct.F90
+M       sglc/cpl_esmf/glc_comp_esmf.F90
+	
+================================================================================
+Originator: tcraig
+Date: Wed Jan 5 2011
+Model: stubs
+Version: stubs1_2_03
+One-line summary: - add esmf metadata feature and update esmf register routine
+
+>svn merge $SVNREPO/stubs/trunk $SVNREPO/stubs/branches/cesm1_0_esmf01
+
+U    slnd/cpl_esmf/lnd_comp_esmf.F90
+U    slnd/cpl_esmf/lnd_comp_mct.F90
+U    socn/cpl_esmf/ocn_comp_esmf.F90
+U    socn/cpl_esmf/ocn_comp_mct.F90
+U    sice/cpl_esmf/ice_comp_esmf.F90
+U    sice/cpl_esmf/ice_comp_mct.F90
+U    satm/cpl_esmf/atm_comp_mct.F90
+U    satm/cpl_esmf/atm_comp_esmf.F90
+U    sglc/cpl_esmf/glc_comp_mct.F90
+U    sglc/cpl_esmf/glc_comp_esmf.F90
+
+================================================================================
+Originator: tcraig
+Date: Sat Sep 26 2009
+Model: stubs
+Version: stubs1_2_02
+One-line summary: updates esmf implementation after detailed review
+
+- use new shared esmf interfaces
+- update infodata/export_state/infodata copy in run method
+- remove ESMF_METHOD cpp from fei
+
+U    slnd/cpl_esmf/lnd_comp_mct.F90
+U    socn/cpl_esmf/ocn_comp_mct.F90
+U    sice/cpl_esmf/ice_comp_mct.F90
+U    satm/cpl_esmf/atm_comp_mct.F90
+U    sglc/cpl_esmf/glc_comp_mct.F90
+
+================================================================================
+Originator: tcraig
+Date: Mon Sep 7 2009
+Model: stubs
+Version: stubs1_2_01
+One-line summary: updates for glc, move templates to local bld dir
+
+ - add cpl_mct and cpl_esmf dirs and populate
+ - add bld dir and populate with template file from scripts
+
+================================================================================
+Originator: tcraig
+Date: Fri Dec 12 2008
+Model: stubs
+Version: stubs1_1_01
+One-line summary: add sglc, add sno to sglc interface
+
+M     slnd/lnd_comp_mct.F90
+A     sglc/glc_comp_mct.F90
+	
+================================================================================
+Originator:
+Date: 
+Model: stubs
+Version: stubs1_0_7
+
+satm, slnd, sice, socn stub components for use in ccsm4.
+history unknown.
+================================================================================

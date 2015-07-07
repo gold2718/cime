@@ -21,7 +21,6 @@ my $iopstatusfilename = "TestStatus.IOP";
 my $casestatusfilename = "CaseStatus";
 my $sleeptime = 120;
 my $baselinetag;
-my $testspecfile;
 # The URL we send test results to. 
 my $posturl = "https://csegweb.cgd.ucar.edu/testdb/cgi-bin/processXMLtest.cgi";
 
@@ -96,16 +95,8 @@ sub opts
 
     # Show usage if the required options aren't specified. 
     &help if (defined $opt_help);
-    #&usage if ( (! defined $testroot) ||(! defined $tagname) || (! defined $testid) || (!defined $testtype) || (! defined $expectedFailsFile));
-    &usage if ( (! defined $testroot) ||(! defined $tagname) || (! defined $testid) || (!defined $testtype));
-    if(defined $expectedFailsFile)
-	{
-	    $expectedFailsFile = abs_path($expectedFailsFile);
-	}
-	else
-	{
-		$expectedFailsFile = undef;
-	}
+    &usage if ( (! defined $testroot) ||(! defined $tagname) || (! defined $testid) || (!defined $testtype) || (! defined $expectedFailsFile));
+	$expectedFailsFile = abs_path($expectedFailsFile);
 }
 
 #-------------------------------------------------------------------------------
@@ -160,8 +151,6 @@ sub Debug
 }
 
 
-
-
 #-------------------------------------------------------------------------------
 # Read the expected fails xml file. 
 #-------------------------------------------------------------------------------
@@ -211,8 +200,7 @@ sub getTestDirs
 }
 
 #-------------------------------------------------------------------------------
-# Get the suite info from config_definition, send it back.  Also get the expectedfails file, 
-# found in $CIMEROOT/scripts/Testing/Testlistxml.  
+# Get the suite info from config_definition, and send it back.  
 #-------------------------------------------------------------------------------
 sub getTestSuiteInfo
 {
@@ -240,7 +228,7 @@ sub getTestSuiteInfo
     $caseinfo{'compiler'} = $buildenv->get('COMPILER');
     $caseinfo{'mpilib'} = $buildenv->get('MPILIB');
 
-    $testspecfile = "$testroot/testspec.$testid.$caseinfo{'mach'}.xml";
+    my $testspecfile = "$testroot/testspec.$testid.$caseinfo{'mach'}.xml";
     Debug( "testspecfile: $testspecfile\n");
     my $parser = XML::LibXML->new;
     my $spec = $parser->parse_file($testspecfile);
@@ -248,17 +236,6 @@ sub getTestSuiteInfo
     my @bltagnodes = $root->findnodes('/testlist/baselinetag');
     $caseinfo{'baselinetag'} = $bltagnodes[0]->textContent();
     &Debug( "baselinetag: $caseinfo{'baselinetag'}\n") ;
-	
-	# Get the expectedFailsFile. 
-	if(! defined $expectedFailsFile)
-	{
-		my @cimeroots = $root->findnodes('/testlist/cimeroot');
-		die "cannot find cimeroot!" if(! @cimeroots);
-        my $cimeroot = $cimeroots[0]->textContent();
-		&Debug("cimeroot: $cimeroot\n");
-		$expectedFailsFile = "$cimeroot/scripts/Testing/Testlistxml/ExpectedTestFails.xml";
-	}
-
     
     &Debug("caseinfo: " . eval { Dumper \%caseinfo} );
     return %caseinfo;
