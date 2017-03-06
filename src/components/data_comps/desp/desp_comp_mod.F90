@@ -452,7 +452,7 @@ CONTAINS
           call get_restart_filenames(ind, ocn_resume, errcode)
           allocate(rfilenames(size(ocn_resume)))
           rfilenames = ocn_resume
-          varname = 'T'
+          varname = 'PSURF_CUR'
         case('glc')
           call get_restart_filenames(ind, glc_resume, errcode)
           allocate(rfilenames(size(glc_resume)))
@@ -505,6 +505,9 @@ CONTAINS
               write(logunit, *) subname, 'Found restart file ',trim(rfilenames(inst))
             end if
             call esp_pio_modify_variable(COMPID, mpicom, rfilenames(inst), varname, var_found)
+            if (.not. var_found) then
+              call shr_sys_abort(subname//'Variable, '//trim(varname)//', not found on '//rfilenames(inst))
+            end if
           end do
         case (null_mode)
           ! Since DESP is not 'present' for this mode, we should not get here.
