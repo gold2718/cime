@@ -386,7 +386,8 @@ contains
     num_inst_min = min(num_inst_min, num_inst_glc)
     num_inst_min = min(num_inst_min, num_inst_wav)
     num_inst_min = min(num_inst_min, num_inst_rof)
-    num_inst_min = min(num_inst_min, num_inst_esp)
+! ESP is currently limited to one instance, should not affect other comps
+!    num_inst_min = min(num_inst_min, num_inst_esp)
     num_inst_max = num_inst_atm
     num_inst_max = max(num_inst_max, num_inst_lnd)
     num_inst_max = max(num_inst_max, num_inst_ocn)
@@ -404,7 +405,10 @@ contains
     if (num_inst_glc /= num_inst_min .and. num_inst_glc /= num_inst_max) error_state = .true.
     if (num_inst_wav /= num_inst_min .and. num_inst_wav /= num_inst_max) error_state = .true.
     if (num_inst_rof /= num_inst_min .and. num_inst_rof /= num_inst_max) error_state = .true.
-    if (num_inst_esp /= num_inst_min .and. num_inst_esp /= num_inst_max) error_state = .true.
+    if (num_inst_esp /= 1) then
+       write(logunit,*) trim(subname),' ERROR: ESP restricted to one instance'
+       error_state = .true.
+    end if
 
     if (error_state) then
        write(logunit,*) trim(subname),' ERROR: num_inst inconsistent'
