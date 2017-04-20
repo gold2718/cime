@@ -713,6 +713,13 @@
       <mask>tx0.1v2</mask>
     </model_grid>
 
+    <model_grid alias="ne5_ne5" not_compset="_POP">
+      <grid name="atm">ne5np4</grid>
+      <grid name="lnd">ne5np4</grid>
+      <grid name="ocnice">ne5np4</grid>
+      <mask>gx3v7</mask>
+    </model_grid>
+
     <model_grid alias="ne16_ne16" not_compset="_POP">
       <grid name="atm">ne16np4</grid>
       <grid name="lnd">ne16np4</grid>
@@ -1038,6 +1045,12 @@
       <file grid="atm|lnd" mask="usgs">$DIN_LOC_ROOT/share/domains/domain.clm/domain.lnd.T42_USGS.111004.nc</file>
       <file grid="ocnice"  mask="usgs">$DIN_LOC_ROOT/atm/cam/ocnfrac/domain.camocn.64x128_USGS_070807.nc</file>
       <desc>T42 is Gaussian grid:</desc>
+    </domain>
+
+    <domain name="ne5np4">
+      <nx>1352</nx> <ny>1</ny>   
+      <desc>ne5np4 is Spectral Elem 6-degree grid:</desc> 
+      <support>For very low resolution spectral element grid testing</support>
     </domain>
 
     <domain name="ne16np4">
