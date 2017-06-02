@@ -710,6 +710,13 @@
       <mask>tx0.1v2</mask>
     </model_grid>
 
+    <model_grid alias="ne5_ne5" not_compset="_POP">
+      <grid name="atm">ne5np4</grid>
+      <grid name="lnd">ne5np4</grid>
+      <grid name="ocnice">ne5np4</grid>
+      <mask>gx3v7</mask>
+    </model_grid>
+
     <model_grid alias="ne16_ne16" not_compset="_POP">
       <grid name="atm">ne16np4</grid>
       <grid name="lnd">ne16np4</grid>
@@ -729,6 +736,13 @@
       <grid name="lnd">ne30np4</grid>
       <grid name="ocnice">ne30np4</grid>
       <mask>gx1v6</mask>
+    </model_grid>
+
+    <model_grid alias="ne30pg3_ne30pg3" not_compset="_POP|_CLM">
+      <grid name="atm">ne30np4.pg3</grid>
+      <grid name="lnd">ne30np4.pg3</grid>
+      <grid name="ocnice">ne30np4.pg3</grid>
+      <mask>gx1v7</mask>
     </model_grid>
 
     <model_grid alias="ne30_ne30_mg16" not_compset="_POP">
@@ -1048,6 +1062,14 @@
       <desc>T42 is Gaussian grid:</desc>
     </domain>
 
+    <domain name="ne5np4">
+      <nx>1352</nx> <ny>1</ny>
+      <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.ne5np4_gx3v7.140810.nc</file>
+      <file grid="ocnice">$DIN_LOC_ROOT/share/domains/domain.ocn.ne5np4_gx3v7.140810.nc</file>
+      <desc>ne5np4 is Spectral Elem 6-deg grid:</desc>
+      <support>For ultra-low resolution spectral element grid testing</support>
+    </domain>
+
     <domain name="ne16np4">
       <nx>13826</nx> <ny>1</ny>
       <file grid="atm|lnd">$DIN_LOC_ROOT/share/domains/domain.lnd.ne16np4_gx3v7.120406.nc</file>
@@ -1058,6 +1080,13 @@
 
     <domain name="ne30np4">
       <nx>48602</nx> <ny>1</ny>
+      <file grid="atm|lnd" mask="gx1v6">$DIN_LOC_ROOT/share/domains/domain.lnd.ne30np4_gx1v6.110905.nc</file>
+      <file grid="ocnice"  mask="gx1v6">$DIN_LOC_ROOT/share/domains/domain.ocn.ne30np4_gx1v6_110217.nc</file>
+      <desc>ne30np4 is Spectral Elem 1-deg grid:</desc>
+    </domain>
+
+    <domain name="ne30np4pg3">
+      <nx>48600</nx> <ny>1</ny>
       <file grid="atm|lnd" mask="gx1v6">$DIN_LOC_ROOT/share/domains/domain.lnd.ne30np4_gx1v6.110905.nc</file>
       <file grid="ocnice"  mask="gx1v6">$DIN_LOC_ROOT/share/domains/domain.ocn.ne30np4_gx1v6_110217.nc</file>
       <desc>ne30np4 is Spectral Elem 1-deg grid:</desc>
