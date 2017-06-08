@@ -731,6 +731,13 @@
       <mask>gx3v7</mask>
     </model_grid>
 
+    <model_grid alias="ne16pg3_ne16pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne16np4.pg3</grid>
+      <grid name="lnd">ne16np4.pg3</grid>
+      <grid name="ocnice">ne16np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
     <model_grid alias="ne16_ne16_mg37" not_compset="_POP">
       <grid name="atm">ne16np4</grid>
       <grid name="lnd">ne16np4</grid>
@@ -1100,6 +1107,13 @@
       <file grid="ocnice">$DIN_LOC_ROOT/share/domains/domain.ocn.ne16np4_gx3v7.121113.nc</file>
       <desc>ne16np4 is Spectral Elem 2-deg grid:</desc>
       <support>For low resolution spectral element grid testing</support>
+    </domain>
+
+    <domain name="ne16np4.pg3">
+      <nx>48600</nx> <ny>1</ny>
+      <file grid="atm|lnd" mask="gx1v7">$DIN_LOC_ROOT/share/domains/domain.lnd.ne16np4.pg3_gx1v7.170607.nc</file>
+      <file grid="ocnice"  mask="gx1v7">$DIN_LOC_ROOT/share/domains/domain.ocn.ne16np4.pg3_gx1v7_170607.nc</file>
+      <desc>ne16np4.pg3 is a Spectral Elem 2-deg grid with a 3x3 FVM physics grid:</desc>
     </domain>
 
     <domain name="ne30np4">
