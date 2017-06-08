@@ -829,6 +829,15 @@
       <mask>gx1v7</mask>
     </model_grid>
 
+   <!-- VR-CESM grids with CAM-SE -->
+
+    <model_grid alias="ne0CONUSne30x8_ne0CONUSne30x8_mg17" not_compset="_POP">
+      <grid name="atm">ne0np4CONUS.ne30x8</grid>
+      <grid name="lnd">ne0np4CONUS.ne30x8</grid>
+      <grid name="ocnice">ne0np4CONUS.ne30x8</grid>
+      <mask>tx0.1v2</mask>
+    </model_grid>
+
     <!-- new runoff grids for data runoff model DROF -->
 
     <model_grid alias="T31_g37_rx1" compset="_DROF">
