@@ -1058,8 +1058,8 @@
     <domain name="T85">
       <!-- global spectral (eulerian dycore) grids-->
       <nx>256</nx>  <ny>128</ny>
-      <file grid="atm|lnd">domain.lnd.T85_gx1v4.060403.nc</file>
-      <file grid="ocnice">domain.lnd.T85_gx1v4.060403.nc</file>
+      <file grid="atm|lnd">domain.lnd.T85_gx1v7.170615.nc</file>
+      <file grid="ocnice">domain.lnd.T85_gx1v7.170615.nc</file>
       <desc>T85 is Gaussian grid:</desc>
       <support>Backward compatible for high resolution Spectral-dycore experiments</support>
     </domain>
