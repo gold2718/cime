@@ -606,10 +606,24 @@
 
     <!--  spectral element grids -->
 
+    <model_grid alias="ne5_ne5_mg37" not_compset="_POP">
+      <grid name="atm">ne5np4</grid>
+      <grid name="lnd">ne5np4</grid>
+      <grid name="ocnice">ne5np4</grid>
+      <mask>gx3v7</mask>
+    </model_grid>
+
     <model_grid alias="ne16_g37">
       <grid name="atm">ne16np4</grid>
       <grid name="lnd">ne16np4</grid>
       <grid name="ocnice">gx3v7</grid>
+      <mask>gx3v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne16_ne16_mg37" not_compset="_POP">
+      <grid name="atm">ne16np4</grid>
+      <grid name="lnd">ne16np4</grid>
+      <grid name="ocnice">ne16np4</grid>
       <mask>gx3v7</mask>
     </model_grid>
 
@@ -659,6 +673,20 @@
       <mask>gx1v7</mask>
     </model_grid>
 
+    <model_grid alias="ne30_ne30_mg16" not_compset="_POP">
+      <grid name="atm">ne30np4</grid>
+      <grid name="lnd">ne30np4</grid>
+      <grid name="ocnice">ne30np4</grid>
+      <mask>gx1v6</mask>
+    </model_grid>
+
+    <model_grid alias="ne30_ne30_mg17" not_compset="_POP">
+      <grid name="atm">ne30np4</grid>
+      <grid name="lnd">ne30np4</grid>
+      <grid name="ocnice">ne30np4</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
     <model_grid alias="ne60_g16">
       <grid name="atm">ne60np4</grid>
       <grid name="lnd">ne60np4</grid>
@@ -670,6 +698,20 @@
       <grid name="atm">ne60np4</grid>
       <grid name="lnd">ne60np4</grid>
       <grid name="ocnice">gx1v7</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne60_ne60_mg16" not_compset="_POP">
+      <grid name="atm">ne60np4</grid>
+      <grid name="lnd">ne60np4</grid>
+      <grid name="ocnice">ne60np4</grid>
+      <mask>gx1v6</mask>
+    </model_grid>
+
+    <model_grid alias="ne60_ne60_mg17" not_compset="_POP">
+      <grid name="atm">ne60np4</grid>
+      <grid name="lnd">ne60np4</grid>
+      <grid name="ocnice">ne60np4</grid>
       <mask>gx1v7</mask>
     </model_grid>
 
@@ -692,6 +734,20 @@
       <grid name="lnd">ne120np4</grid>
       <grid name="ocnice">tx0.1v2</grid>
       <mask>tx0.1v2</mask>
+    </model_grid>
+
+    <model_grid alias="ne120_ne120_mg16" not_compset="_POP">
+      <grid name="atm">ne120np4</grid>
+      <grid name="lnd">ne120np4</grid>
+      <grid name="ocnice">ne120np4</grid>
+      <mask>gx1v6</mask>
+    </model_grid>
+
+    <model_grid alias="ne120_ne120_mg17" not_compset="_POP">
+      <grid name="atm">ne120np4</grid>
+      <grid name="lnd">ne120np4</grid>
+      <grid name="ocnice">ne120np4</grid>
+      <mask>gx1v7</mask>
     </model_grid>
 
     <model_grid alias="ne240_f02_g16">
@@ -717,118 +773,6 @@
       <mask>tx0.1v2</mask>
     </model_grid>
 
-    <model_grid alias="ne5_ne5_mg37" not_compset="_POP">
-      <grid name="atm">ne5np4</grid>
-      <grid name="lnd">ne5np4</grid>
-      <grid name="ocnice">ne5np4</grid>
-      <mask>gx3v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne5pg3_ne5pg3_mg37" not_compset="_POP">
-      <grid name="atm">ne5np4.pg3</grid>
-      <grid name="lnd">ne5np4.pg3</grid>
-      <grid name="ocnice">ne5np4.pg3</grid>
-      <mask>gx3v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne16_ne16" not_compset="_POP">
-      <grid name="atm">ne16np4</grid>
-      <grid name="lnd">ne16np4</grid>
-      <grid name="ocnice">ne16np4</grid>
-      <mask>gx3v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne16pg3_ne16pg3_mg17" not_compset="_POP|_CLM">
-      <grid name="atm">ne16np4.pg3</grid>
-      <grid name="lnd">ne16np4.pg3</grid>
-      <grid name="ocnice">ne16np4.pg3</grid>
-      <mask>gx1v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne16_ne16_mg37" not_compset="_POP">
-      <grid name="atm">ne16np4</grid>
-      <grid name="lnd">ne16np4</grid>
-      <grid name="ocnice">ne16np4</grid>
-      <mask>gx3v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne30_ne30" not_compset="_POP">
-      <grid name="atm">ne30np4</grid>
-      <grid name="lnd">ne30np4</grid>
-      <grid name="ocnice">ne30np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne30_ne30_mg16" not_compset="_POP">
-      <grid name="atm">ne30np4</grid>
-      <grid name="lnd">ne30np4</grid>
-      <grid name="ocnice">ne30np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne30_ne30_mg17" not_compset="_POP">
-      <grid name="atm">ne30np4</grid>
-      <grid name="lnd">ne30np4</grid>
-      <grid name="ocnice">ne30np4</grid>
-      <mask>gx1v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne30pg3_ne30pg3_mg17" not_compset="_POP|_CLM">
-      <grid name="atm">ne30np4.pg3</grid>
-      <grid name="lnd">ne30np4.pg3</grid>
-      <grid name="ocnice">ne30np4.pg3</grid>
-      <mask>gx1v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne60_ne60" not_compset="_POP">
-      <grid name="atm">ne60np4</grid>
-      <grid name="lnd">ne60np4</grid>
-      <grid name="ocnice">ne60np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne60_ne60_mg16" not_compset="_POP">
-      <grid name="atm">ne60np4</grid>
-      <grid name="lnd">ne60np4</grid>
-      <grid name="ocnice">ne60np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne60_ne60_mg17" not_compset="_POP">
-      <grid name="atm">ne60np4</grid>
-      <grid name="lnd">ne60np4</grid>
-      <grid name="ocnice">ne60np4</grid>
-      <mask>gx1v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne120_ne120" not_compset="_POP">
-      <grid name="atm">ne120np4</grid>
-      <grid name="lnd">ne120np4</grid>
-      <grid name="ocnice">ne120np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne120_ne120_mg16" not_compset="_POP">
-      <grid name="atm">ne120np4</grid>
-      <grid name="lnd">ne120np4</grid>
-      <grid name="ocnice">ne120np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
-    <model_grid alias="ne120_ne120_mg17" not_compset="_POP">
-      <grid name="atm">ne120np4</grid>
-      <grid name="lnd">ne120np4</grid>
-      <grid name="ocnice">ne120np4</grid>
-      <mask>gx1v7</mask>
-    </model_grid>
-
-    <model_grid alias="ne240_ne240" not_compset="_POP">
-      <grid name="atm">ne240np4</grid>
-      <grid name="lnd">ne240np4</grid>
-      <grid name="ocnice">ne240np4</grid>
-      <mask>gx1v6</mask>
-    </model_grid>
-
     <model_grid alias="ne240_ne240_mg16" not_compset="_POP">
       <grid name="atm">ne240np4</grid>
       <grid name="lnd">ne240np4</grid>
@@ -840,6 +784,103 @@
       <grid name="atm">ne240np4</grid>
       <grid name="lnd">ne240np4</grid>
       <grid name="ocnice">ne240np4</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <!--  spectral element grids with 2x2 FVM physics grid -->
+
+    <model_grid alias="ne30pg2_ne30pg2_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne30np4.pg2</grid>
+      <grid name="lnd">ne30np4.pg2</grid>
+      <grid name="ocnice">ne30np4.pg2</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne60pg2_ne60pg2_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne60np4.pg2</grid>
+      <grid name="lnd">ne60np4.pg2</grid>
+      <grid name="ocnice">ne60np4.pg2</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne120pg2_ne120pg2_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne120np4.pg2</grid>
+      <grid name="lnd">ne120np4.pg2</grid>
+      <grid name="ocnice">ne120np4.pg2</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne240pg2_ne240pg2_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne240np4.pg2</grid>
+      <grid name="lnd">ne240np4.pg2</grid>
+      <grid name="ocnice">ne240np4.pg2</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <!--  spectral element grids with 3x3 FVM physics grid -->
+
+    <model_grid alias="ne5pg3_ne5pg3_mg37" not_compset="_POP">
+      <grid name="atm">ne5np4.pg3</grid>
+      <grid name="lnd">ne5np4.pg3</grid>
+      <grid name="ocnice">ne5np4.pg3</grid>
+      <mask>gx3v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne16pg3_ne16pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne16np4.pg3</grid>
+      <grid name="lnd">ne16np4.pg3</grid>
+      <grid name="ocnice">ne16np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne30pg3_ne30pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne30np4.pg3</grid>
+      <grid name="lnd">ne30np4.pg3</grid>
+      <grid name="ocnice">ne30np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne60pg3_ne60pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne60np4.pg3</grid>
+      <grid name="lnd">ne60np4.pg3</grid>
+      <grid name="ocnice">ne60np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne120pg3_ne120pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne120np4.pg3</grid>
+      <grid name="lnd">ne120np4.pg3</grid>
+      <grid name="ocnice">ne120np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne240pg3_ne240pg3_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne240np4.pg3</grid>
+      <grid name="lnd">ne240np4.pg3</grid>
+      <grid name="ocnice">ne240np4.pg3</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <!--  spectral element grids with 4x4 FVM physics grid -->
+
+    <model_grid alias="ne30pg4_ne30pg4_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne30np4.pg4</grid>
+      <grid name="lnd">ne30np4.pg4</grid>
+      <grid name="ocnice">ne30np4.pg4</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne60pg4_ne60pg4_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne60np4.pg4</grid>
+      <grid name="lnd">ne60np4.pg4</grid>
+      <grid name="ocnice">ne60np4.pg4</grid>
+      <mask>gx1v7</mask>
+    </model_grid>
+
+    <model_grid alias="ne120pg4_ne120pg4_mg17" not_compset="_POP|_CLM">
+      <grid name="atm">ne120np4.pg4</grid>
+      <grid name="lnd">ne120np4.pg4</grid>
+      <grid name="ocnice">ne120np4.pg4</grid>
       <mask>gx1v7</mask>
     </model_grid>
 
