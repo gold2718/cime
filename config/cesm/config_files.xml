@@ -216,6 +216,7 @@
     <type>char</type>
     <default_value>unset</default_value>
     <values>
+      <value component="dart"      >$SRCROOT/components/dart/</value>
       <value component="desp"      >$CIMEROOT/src/components/data_comps/desp</value>
       <value component="sesp"      >$CIMEROOT/src/components/stub_comps/sesp</value>
     </values>

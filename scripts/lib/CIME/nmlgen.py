@@ -651,7 +651,7 @@ class NamelistGenerator(object):
                             else:
                                 logger.debug("Line already in file {}".format(string))
 
-    def write_output_file(self, namelist_file, data_list_path=None, groups=None, sorted_groups=True):
+    def write_output_file(self, namelist_file, data_list_path=None, groups=None, sorted_groups=True, append=False):
         """Write out the namelists and input data files.
 
         The `namelist_file` and `modelio_file` are the locations to which the
@@ -670,7 +670,7 @@ class NamelistGenerator(object):
             groups.remove("seq_maps")
 
         # write namelist file
-        self._namelist.write(namelist_file, groups=groups, sorted_groups=sorted_groups)
+        self._namelist.write(namelist_file, groups=groups, sorted_groups=sorted_groups, append=append)
 
         if data_list_path is not None:
             self._write_input_files(data_list_path)

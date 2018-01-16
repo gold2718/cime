@@ -633,8 +633,32 @@ class Case(object):
         # for each component
         self.set_comp_classes(drv_comp.get_valid_model_components())
 
-        if len(self._component_classes) > len(self._components):
+        # Since ESP is optional in the compset longname, make sure there is one
+        # The list of supported models is in config_files.xml
+        esp_nodes = files.get_nodes_by_id("COMP_ROOT_DIR_ESP")
+        if esp_nodes is not None:
+            esp_values = files.get_child(name="values", root=esp_nodes[0])
+            if esp_values is not None:
+                esp_value_list = files.get_children(name="value", root=esp_values)
+            else:
+                esp_value_list = [ ]
+        else:
+            esp_value_list = [ ]
+
+        # Get a list of all the ESP models (e.g., desp)
+        esp_components = [ files.get(x, "component") for x in esp_value_list ]
+
+        # Are any of the ESP models already in the compset?
+        esp_in_compset = [ x for x in esp_components if x in self._components ]
+
+        # There can be at most one ESP model
+        expect(len(esp_in_compset) <= 1,
+               "More than one ESP component found in compset ({})".format(esp_in_compset))
+        if len(esp_in_compset) == 0:
+            logger.info("Adding SESP as a default ESP component")
             self._components.append('sesp')
+        else:
+            logger.info("ESP model {} found in compset".format(esp_in_compset[0]))
 
         # will need a change here for new cpl components
         root_dir_node_name = 'COMP_ROOT_DIR_CPL'
