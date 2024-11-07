@@ -2,17 +2,31 @@
 Common functions used by cime python scripts
 Warning: you cannot use CIME Classes in this module as it causes circular dependencies
 """
-import io, logging, gzip, sys, os, time, re, shutil, glob, string, random, imp, fnmatch
+import io, logging, gzip, sys, os, time, re, shutil, glob, string, random, importlib, fnmatch
+import importlib.util
 import errno, signal, warnings, filecmp
 import stat as statlib
 import six
 from contextlib import contextmanager
 #pylint: disable=import-error
-from six.moves import configparser
+import configparser
 
 # Return this error code if the scripts worked but tests failed
 TESTS_FAILED_ERR_CODE = 100
 logger = logging.getLogger(__name__)
+
+def import_from_file(name, file_path):
+    loader = importlib.machinery.SourceFileLoader(name, file_path)
+
+    spec = importlib.util.spec_from_loader(loader.name, loader)
+
+    module = importlib.util.module_from_spec(spec)
+
+    sys.modules[name] = module
+
+    spec.loader.exec_module(module)
+
+    return module
 
 @contextmanager
 def redirect_stdout(new_target):
@@ -187,7 +201,7 @@ def _read_cime_config_file():
 
     cime_config_file = os.path.abspath(os.path.join(os.path.expanduser("~"),
                                                   ".cime","config"))
-    cime_config = configparser.SafeConfigParser()
+    cime_config = configparser.ConfigParser()
     if(os.path.isfile(cime_config_file)):
         cime_config.read(cime_config_file)
         for section in cime_config.sections():
