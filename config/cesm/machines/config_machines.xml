@@ -2364,6 +2364,7 @@ This allows using a different mpirun command to launch unit tests
         <command name="load">NCO/5.1.9-iomkl-2022a</command>
         <command name="load">CMake/3.23.1-GCCcore-11.3.0</command>
         <command name="load">Python/3.10.4-GCCcore-11.3.0</command>
+        <command name="load">XML-LibXML/2.0207-GCCcore-11.3.0</command>
       </modules>
     </module_system>
     <environment_variables>
