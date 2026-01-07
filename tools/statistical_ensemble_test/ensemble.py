@@ -27,11 +27,11 @@ def get_pertlim_uf(rand_num):
        k = (i - 1)%100
        if i%2 != 0:
           ll = j + (k/2)*18
-          ippt = '{0:03d}'.format(ll)
+          ippt = '{0:03d}'.format(int(ll))
           ptlim = "0."+ippt+"d-13"
        else:
           ll = j + ((k-1)/2)*18
-          ippt = '{0:03d}'.format(ll)
+          ippt = '{0:03d}'.format(int(ll))
           ptlim = "-0."+ippt+"d-13"
     return ptlim 
 
@@ -61,7 +61,7 @@ def main(argv):
         run_type = 'ensemble'
         clone_count = ens_size - 1
         if ens_size > 999:
-            print 'Error: cannot have an ensemble size greater than 999.'
+            print('Error: cannot have an ensemble size greater than 999.')
             sys.exit()
         print('STATUS: ensemble size = ' + str(ens_size))
     
@@ -180,11 +180,11 @@ def main(argv):
         if opts_dict['ect'] == 'pop':
             print ("STATUS: ---POP-ECT VERIFICATION CASE COMPLETE---")
             print ("Set up one case using the following init_ts_perturb value:")
-            print get_pertlim_uf(rand_ints[0])
+            print (get_pertlim_uf(rand_ints[0]))
         else:
             print ("STATUS: ---CAM-ECT VERIFICATION CASES COMPLETE---")
             print ("Set up three cases using the following pertlim values:")
-            print get_pertlim_uf(rand_ints[0]) + '   ' + get_pertlim_uf(rand_ints[1]) + "   " + get_pertlim_uf(rand_ints[2])
+            print (get_pertlim_uf(rand_ints[0]) + '   ' + get_pertlim_uf(rand_ints[1]) + "   " + get_pertlim_uf(rand_ints[2]))
     else:
        print ("STATUS: --ENSEMBLE CASES COMPLETE---")
 

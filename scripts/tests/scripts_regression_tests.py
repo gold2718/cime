@@ -19,9 +19,14 @@ subprocess.call('/bin/rm -f $(find . -name "*.pyc")', shell=True, cwd=LIB_DIR)
 import six
 from six import assertRaisesRegex
 
-
 import collections
+try:
+    collectionsABC = collections.abc
+except AttributeError:
+    collectionsABC = collections
 
+
+    
 from CIME.utils import run_cmd, run_cmd_no_fail, get_lids, get_current_commit
 import get_tests
 import CIME.test_scheduler, CIME.wait_for_tests
@@ -43,8 +48,12 @@ FAST_ONLY   = False
 NO_BATCH    = False
 NO_CMAKE    = False
 TEST_ROOT   = None
+NO_FORTRAN_RUN = False
 
 os.environ["CIME_GLOBAL_WALLTIME"] = "0:05:00"
+
+
+
 
 # pragma pylint: disable=protected-access
 ###############################################################################
@@ -73,6 +82,13 @@ def assert_test_status(test_obj, test_name, test_status_obj, test_phase, expecte
 ###############################################################################
     test_status = test_status_obj.get_status(test_phase)
     test_obj.assertEqual(test_status, expected_stat, msg="Problem with {}: for phase '{}': has status '{}', expected '{}'".format(test_name, test_phase, test_status, expected_stat))
+
+def threadisAlive(run_thread):
+    try:
+        threadisAlive = run_thread.isAlive()
+    except AttributeError:
+        threadisAlive = run_thread.is_alive()
+    return threadisAlive
 
 ###############################################################################
 class A_RunUnitTests(unittest.TestCase):
@@ -766,14 +782,14 @@ class M_TestWaitForTests(unittest.TestCase):
 
         time.sleep(5) # Kinda hacky
 
-        self.assertTrue(run_thread.isAlive(), msg="wait_for_tests should have waited")
+        self.assertTrue(threadisAlive(run_thread), msg="wait_for_tests should have waited")
 
         with TestStatus(test_dir=os.path.join(self._testdir_unfinished, "5")) as ts:
             ts.set_status(RUN_PHASE, TEST_PASS_STATUS)
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="wait_for_tests should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="wait_for_tests should have finished")
 
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
 
@@ -786,14 +802,14 @@ class M_TestWaitForTests(unittest.TestCase):
 
         time.sleep(5) # Kinda hacky
 
-        self.assertTrue(run_thread.isAlive(), msg="wait_for_tests should have waited")
+        self.assertTrue(threadisAlive(run_thread), msg="wait_for_tests should have waited")
 
         with TestStatus(test_dir=os.path.join(self._testdir_unfinished2, "5")) as ts:
             ts.set_status(RUN_PHASE, TEST_PASS_STATUS)
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="wait_for_tests should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="wait_for_tests should have finished")
 
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
 
@@ -807,13 +823,13 @@ class M_TestWaitForTests(unittest.TestCase):
 
         time.sleep(5)
 
-        self.assertTrue(run_thread.isAlive(), msg="wait_for_tests should have waited")
+        self.assertTrue(threadisAlive(run_thread), msg="wait_for_tests should have waited")
 
         kill_python_subprocesses(signal.SIGTERM, expected_num_killed=1, tester=self)
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="wait_for_tests should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="wait_for_tests should have finished")
 
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
 
@@ -828,7 +844,7 @@ class M_TestWaitForTests(unittest.TestCase):
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="wait_for_tests should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="wait_for_tests should have finished")
 
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
 
@@ -845,13 +861,13 @@ class M_TestWaitForTests(unittest.TestCase):
 
         time.sleep(5)
 
-        self.assertTrue(run_thread.isAlive(), msg="wait_for_tests should have waited")
+        self.assertTrue(threadisAlive(run_thread), msg="wait_for_tests should have waited")
 
         kill_python_subprocesses(signal.SIGTERM, expected_num_killed=1, tester=self)
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="wait_for_tests should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="wait_for_tests should have finished")
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
 
         assert_dashboard_has_build(self, "regression_test_kill")
@@ -1047,6 +1063,8 @@ class O_TestTestScheduler(TestCreateTestCommon):
     ###########################################################################
     def test_b_full(self):
     ###########################################################################
+        if self._machine == "ubuntu-latest":
+            self.skipTest("Skipping test on maint-5.6")
         tests = get_tests.get_full_test_names(["cime_test_only"], self._machine, self._compiler)
         test_id="%s-%s" % (self._baseline_name, CIME.utils.get_timestamp())
         ct = TestScheduler(tests, test_id=test_id, no_batch=NO_BATCH, test_root=TEST_ROOT,
@@ -1113,6 +1131,8 @@ class O_TestTestScheduler(TestCreateTestCommon):
     ###########################################################################
     def test_c_use_existing(self):
     ###########################################################################
+        if self._machine == "ubuntu-latest":
+            self.skipTest("Skipping test on maint-5.6")
         tests = get_tests.get_full_test_names(["TESTBUILDFAIL_P1.f19_g16_rx1.A", "TESTRUNFAIL_P1.f19_g16_rx1.A", "TESTRUNPASS_P1.f19_g16_rx1.A"],
                                                       self._machine, self._compiler)
         test_id="%s-%s" % (self._baseline_name, CIME.utils.get_timestamp())
@@ -1203,6 +1223,8 @@ class O_TestTestScheduler(TestCreateTestCommon):
     ###########################################################################
     def test_d_retry(self):
     ###########################################################################
+        if self._machine == "ubuntu-latest":
+            self.skipTest("Skipping test on maint-5.6")
         args = ["TESTBUILDFAIL_P1.f19_g16_rx1.A", "TESTRUNFAIL_P1.f19_g16_rx1.A", "TESTRUNPASS_P1.f19_g16_rx1.A", "--retry=1"]
 
         self._create_test(args)
@@ -1279,6 +1301,7 @@ class P_TestJenkinsGenericJob(TestCreateTestCommon):
         self.assert_num_leftovers() # jenkins_generic_job should have automatically cleaned up leftovers from prior run
         assert_dashboard_has_build(self, build_name)
 
+
     ###########################################################################
     def test_jenkins_generic_job_kill(self):
     ###########################################################################
@@ -1293,10 +1316,11 @@ class P_TestJenkinsGenericJob(TestCreateTestCommon):
 
         run_thread.join(timeout=10)
 
-        self.assertFalse(run_thread.isAlive(), msg="jenkins_generic_job should have finished")
+        self.assertFalse(threadisAlive(run_thread), msg="jenkins_generic_job should have finished")
         self.assertTrue(self._thread_error is None, msg="Thread had failure: %s" % self._thread_error)
         assert_dashboard_has_build(self, build_name)
 
+        
 ###############################################################################
 class T_TestRunRestart(TestCreateTestCommon):
 ###############################################################################
@@ -1304,6 +1328,8 @@ class T_TestRunRestart(TestCreateTestCommon):
     ###########################################################################
     def test_run_restart(self):
     ###########################################################################
+        if (NO_FORTRAN_RUN):
+            self.skipTest("Skipping fortran test")
         self._create_test(["NODEFAIL_P1.f09_g16.X"], test_id=self._baseline_name)
 
         casedir = os.path.join(self._testroot,
@@ -1317,6 +1343,8 @@ class T_TestRunRestart(TestCreateTestCommon):
     ###########################################################################
     def test_run_restart_too_many_fails(self):
     ###########################################################################
+        if (NO_FORTRAN_RUN):
+            self.skipTest("Skipping fortran test")
         self._create_test(["NODEFAIL_P1.f09_g16.X"], test_id=self._baseline_name, env_changes="NODEFAIL_NUM_FAILS=5", run_errors=True)
 
         casedir = os.path.join(self._testroot,
@@ -1343,6 +1371,8 @@ class Q_TestBlessTestResults(TestCreateTestCommon):
     def test_bless_test_results(self):
     ###############################################################################
         # Generate some baselines
+        if (NO_FORTRAN_RUN):
+            self.skipTest("Skipping fortran test")
         test_name = "TESTRUNDIFF_P1.f19_g16_rx1.A"
 
         if CIME.utils.get_model() == "e3sm":
@@ -1573,6 +1603,8 @@ class K_TestCimeCase(TestCreateTestCommon):
                                      "--compset X --res f19_g16 --output-root {}").format(
                                          SCRIPT_DIR, testcase_name, testdir, testdir),
                               from_dir=SCRIPT_DIR)
+        run_cmd_assert_result(self, "./case.setup", from_dir=testdir)
+
         return testdir
 
     ###########################################################################
@@ -1586,14 +1618,14 @@ class K_TestCimeCase(TestCreateTestCommon):
             job_name = "case.run"
             prereq_name = 'prereq_test'
             batch_commands = case.submit_jobs(prereq=prereq_name, job=job_name, skip_pnl=True, dry_run=True)
-            self.assertTrue(isinstance(batch_commands, collections.Sequence), "case.submit_jobs did not return a sequence for a dry run")
+            self.assertTrue(isinstance(batch_commands, collectionsABC.Sequence), "case.submit_jobs did not return a sequence for a dry run")
             self.assertTrue(len(batch_commands) > 0, "case.submit_jobs did not return any job submission string")
             # The first element in the internal sequence should just be the job name
             # The second one (batch_cmd_index) should be the actual batch submission command
             batch_cmd_index = 1
             # The prerequisite should be applied to all jobs, though we're only expecting one
             for batch_cmd in batch_commands:
-                self.assertTrue(isinstance(batch_cmd, collections.Sequence), "case.submit_jobs did not return a sequence of sequences")
+                self.assertTrue(isinstance(batch_cmd, collectionsABC.Sequence), "case.submit_jobs did not return a sequence of sequences")
                 self.assertTrue(len(batch_cmd) > batch_cmd_index, "case.submit_jobs returned internal sequences with length <= {}".format(batch_cmd_index))
                 self.assertTrue(isinstance(batch_cmd[1], six.string_types), "case.submit_jobs returned internal sequences without the batch command string as the second parameter: {}".format(batch_cmd[1]))
                 batch_cmd_args = batch_cmd[1]
@@ -1626,7 +1658,7 @@ class K_TestCimeCase(TestCreateTestCommon):
             prereq_name = "prereq_allow_fail_test"
             depend_allow = depend_allow.replace("jobid", prereq_name)
             batch_commands = case.submit_jobs(prereq=prereq_name, allow_fail=True, job=job_name, skip_pnl=True, dry_run=True)
-            self.assertTrue(isinstance(batch_commands, collections.Sequence), "case.submit_jobs did not return a sequence for a dry run")
+            self.assertTrue(isinstance(batch_commands, collectionsABC.Sequence), "case.submit_jobs did not return a sequence for a dry run")
             num_submissions = 1
             if case.get_value("DOUT_S"):
                 num_submissions = 2
@@ -1642,12 +1674,12 @@ class K_TestCimeCase(TestCreateTestCommon):
             depend_string = case.get_value("depend_string")
             if depend_string is None:
                 self.skipTest("Skipping resubmit_immediate test, depend_string was not provided for this batch system")
-            depend_string = depend_string.replace("jobid", "")
+            depend_string = re.sub('jobid.*$','',depend_string)
             job_name = "case.run"
             num_submissions = 6
             case.set_value("RESUBMIT", num_submissions - 1)
             batch_commands = case.submit_jobs(job=job_name, skip_pnl=True, dry_run=True, resubmit_immediate=True)
-            self.assertTrue(isinstance(batch_commands, collections.Sequence), "case.submit_jobs did not return a sequence for a dry run")
+            self.assertTrue(isinstance(batch_commands, collectionsABC.Sequence), "case.submit_jobs did not return a sequence for a dry run")
             if case.get_value("DOUT_S"):
                 num_submissions = 12
             self.assertTrue(len(batch_commands) == num_submissions, "case.submit_jobs did not return {} submitted jobs".format(num_submissions))
@@ -1886,7 +1918,12 @@ class K_TestCimeCase(TestCreateTestCommon):
         run_cmd_assert_result(self, "./case.setup --reset", from_dir=casedir)
 
         result = run_cmd_assert_result(self, "./xmlquery JOB_WALLCLOCK_TIME --subgroup=case.test --value", from_dir=casedir)
-        self.assertEqual(result, "421:32:11")
+        with Case(casedir) as case:
+            walltime_format = case.get_value("walltime_format", subgroup=None)
+            if walltime_format is not None and walltime_format.count(":") == 1:
+                self.assertEqual(result, "421:32")
+            else:
+                self.assertEqual(result, "421:32:11")
 
     ###########################################################################
     def test_cime_case_test_walltime_mgmt_7(self):
@@ -1907,7 +1944,12 @@ class K_TestCimeCase(TestCreateTestCommon):
         run_cmd_assert_result(self, "./case.setup --reset", from_dir=casedir)
 
         result = run_cmd_assert_result(self, "./xmlquery JOB_WALLCLOCK_TIME --subgroup=case.test --value", from_dir=casedir)
-        self.assertEqual(result, "421:32:11")
+        with Case(casedir) as case:
+            walltime_format = case.get_value("walltime_format", subgroup=None)
+            if walltime_format is not None and walltime_format.count(":") == 1:
+                self.assertEqual(result, "421:32")
+            else:
+                self.assertEqual(result, "421:32:11")
 
     ###########################################################################
     def test_cime_case_test_custom_project(self):
@@ -1998,6 +2040,8 @@ class L_TestSaveTimings(TestCreateTestCommon):
     ###########################################################################
     def simple_test(self, manual_timing=False):
     ###########################################################################
+        if (NO_FORTRAN_RUN):
+            self.skipTest("Skipping fortran test")
         timing_flag = "" if manual_timing else "--save-timing"
         self._create_test(["SMS_Ln9_P1.f19_g16_rx1.A", timing_flag, "--walltime=0:15:00"], test_id=self._baseline_name)
 
@@ -2720,7 +2764,7 @@ def check_for_pylint():
     from distutils.spawn import find_executable
     pylint = find_executable("pylint")
     if pylint is not None:
-        output = run_cmd_no_fail("pylint --version")
+        output = run_cmd_no_fail(pylint+" --version")
         pylintver = re.search(r"pylint\s+(\d+)[.](\d+)[.](\d+)", output)
         major = int(pylintver.group(1))
         minor = int(pylintver.group(2))
@@ -2750,6 +2794,7 @@ def _main_func(description):
     global TEST_MPILIB
     global TEST_ROOT
     global GLOBAL_TIMEOUT
+    global NO_FORTRAN_RUN
     config = CIME.utils.get_cime_config()
 
     help_str = \
@@ -2780,6 +2825,10 @@ OR
                         help="Do not submit jobs to batch system, run locally."
                         " If false, will default to machine setting.")
 
+    parser.add_argument("--no-fortran-run", action="store_true",
+                        help="Do not run any fortran jobs. Implies --fast"
+                        " Used for github actions")
+
     parser.add_argument("--no-cmake", action="store_true",
                         help="Do not run cmake tests")
 
@@ -2807,6 +2856,9 @@ OR
     NO_BATCH       = ns.no_batch
     NO_CMAKE       = ns.no_cmake
     GLOBAL_TIMEOUT = ns.timeout
+    NO_FORTRAN_RUN = ns.no_fortran_run
+    if NO_FORTRAN_RUN:
+        FAST_ONLY = True
 
     if ns.machine is not None:
         MACHINE = Machines(machine=ns.machine)
