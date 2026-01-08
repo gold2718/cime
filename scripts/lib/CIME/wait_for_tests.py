@@ -1,7 +1,5 @@
-#pylint: disable=import-error
-from six.moves import queue
+import queue
 import os, time, threading, socket, signal, shutil, glob
-#pylint: disable=import-error
 from distutils.spawn import find_executable
 import logging
 import xml.etree.ElementTree as xmlet

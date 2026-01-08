@@ -2,14 +2,12 @@
 Common functions used by cime python scripts
 Warning: you cannot use CIME Classes in this module as it causes circular dependencies
 """
-#pylint: disable=deprecated-module
-import io, logging, gzip, sys, os, time, re, shutil, glob, string, random, imp, fnmatch
+import io, logging, gzip, sys, os, time, re, shutil, glob, string, random, importlib, fnmatch
 import errno, signal, warnings, filecmp
+import configparser
 import stat as statlib
 import six
 from contextlib import contextmanager
-#pylint: disable=import-error
-from six.moves import configparser
 
 # Return this error code if the scripts worked but tests failed
 TESTS_FAILED_ERR_CODE = 100
@@ -192,7 +190,7 @@ def _read_cime_config_file():
 
     cime_config_file = os.path.abspath(os.path.join(os.path.expanduser("~"),
                                                   ".cime","config"))
-    cime_config = configparser.SafeConfigParser()
+    cime_config = configparser.ConfigParser()
     if(os.path.isfile(cime_config_file)):
         cime_config.read(cime_config_file)
         for section in cime_config.sections():
@@ -320,6 +318,67 @@ def _convert_to_fd(filearg, from_dir, mode="a"):
 
 _hack=object()
 
+def _line_defines_python_function(line, funcname):
+    """Returns True if the given line defines the function 'funcname' as a top-level definition
+
+    ("top-level definition" means: not something like a class method; i.e., the def should
+    be at the start of the line, not indented)
+
+    """
+    if re.search(r"^def\s+{}\s*\(".format(funcname), line) or re.search(
+        r"^from\s.+\simport.*\s{}(?:,|\s|$)".format(funcname), line
+    ):
+        return True
+    return False
+
+
+def file_contains_python_function(filepath, funcname):
+    """Checks whether the given file contains a top-level definition of the function 'funcname'
+
+    Returns a boolean value (True if the file contains this function definition, False otherwise)
+    """
+    has_function = False
+    with open(filepath, "r") as fd:
+        for line in fd.readlines():
+            if _line_defines_python_function(line, funcname):
+                has_function = True
+                break
+
+    return has_function
+
+def get_tools_path():
+    cimeroot = get_cime_root()
+
+    return os.path.join(cimeroot, "CIME", "Tools")
+
+def fixup_sys_path(*additional_paths):
+    cimeroot = get_cime_root()
+
+    if cimeroot not in sys.path or sys.path.index(cimeroot) > 0:
+        sys.path.insert(0, cimeroot)
+
+    tools_path = get_tools_path()
+
+    if tools_path not in sys.path or sys.path.index(tools_path) > 1:
+        sys.path.insert(1, tools_path)
+
+    for i, x in enumerate(additional_paths):
+        if x not in sys.path or sys.path.index(x) > 2 + i:
+            sys.path.insert(2 + i, x)
+
+def import_from_file(name, file_path):
+    loader = importlib.machinery.SourceFileLoader(name, file_path)
+
+    spec = importlib.util.spec_from_loader(loader.name, loader)
+
+    module = importlib.util.module_from_spec(spec)
+
+    sys.modules[name] = module
+
+    spec.loader.exec_module(module)
+
+    return module
+
 def run_sub_or_cmd(cmd, cmdargs, subname, subargs, logfile=None, case=None, from_dir=None, timeout=None):
     """
     This code will try to import and run each cmd as a subroutine
@@ -331,15 +390,18 @@ def run_sub_or_cmd(cmd, cmdargs, subname, subargs, logfile=None, case=None, from
 
     # Before attempting to load the script make sure it contains the subroutine
     # we are expecting
-    with open(cmd, 'r') as fd:
-        for line in fd.readlines():
-            if re.search(r"^def {}\(".format(subname), line):
-                do_run_cmd = False
-                break
+    if file_contains_python_function(cmd, subname):
+        do_run_cmd = False
+    else:
+        do_run_cmd = True
 
     if not do_run_cmd:
+        # ensure we provide `get_src_root()` and `get_tools_path()` to sys.path
+        # allowing imported modules to correctly import `CIME` module or any
+        # tool under `CIME/Tools`.
+        fixup_sys_path()
         try:
-            mod = imp.load_source(subname, cmd)
+            mod = import_from_file(subname, cmd)
             logger.info("   Calling {}".format(cmd))
             if logfile:
                 with open(logfile,"w") as log_fd:
