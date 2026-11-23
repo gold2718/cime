@@ -1789,7 +1789,7 @@ class Case(object):
             customize_path = os.path.join(srcroot, "cime_config", "customize")
             safe_copy(os.path.join(customize_path, "e3sm_compile_wrap.py"), casetools)
 
-        # add archive_metadata to the CASEROOT but only for CESM
+        # add archive_metadata to the CASEROOT but only for CESM like models
         if config.copy_cesm_tools:
             try:
                 exefile = os.path.join(toolsdir, "archive_metadata")
@@ -2200,7 +2200,7 @@ directory, NOT in this subdirectory."""
 
     def _check_testlists(self, compset_alias, grid_name, files):
         """
-        CESM only: check the testlist file for tests of this compset grid combination
+        CESM-like only: check the testlist file for tests of this compset grid combination
 
         compset_alias should be None for a user-defined compset (i.e., a compset
         without an alias)
@@ -2244,7 +2244,7 @@ directory, NOT in this subdirectory."""
         else:
             expect(
                 False,
-                "\nThis compset and grid combination is untested in CESM.  "
+                f"\nThis compset and grid combination is untested in {self._cime_model}.  "
                 "Override this warning with the --run-unsupported option to create_newcase.",
                 error_prefix="STOP: ",
             )
